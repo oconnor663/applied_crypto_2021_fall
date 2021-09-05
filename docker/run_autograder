@@ -1,0 +1,33 @@
+#! /usr/bin/env bash
+
+set -e -u -o pipefail
+
+# If the solution includes setup.sh, run that first. If the solution needs any
+# extra dependencies, this is where the `apt-get install` commands should go.
+# Ignore the exit status.
+if [[ -e /autograder/submission/setup.sh ]] ; then
+    echo "Running setup.sh..."
+    bash -x /autograder/submission/setup.sh || true
+fi
+
+# Execute the solution using the grading input. run_solution.py suppresses the
+# solution's exit status, so an early exit here will only happen if no solution
+# is found.
+echo "Running solution..."
+python3 /autograder/run_solution.py \
+    /autograder/submission \
+    < /autograder/grading_input.json \
+    > /autograder/submission_output.json
+cat /autograder/submission_output.json
+echo
+
+# Grade the output.
+echo "Grading..."
+mkdir -p /autograder/results
+python3 /autograder/grade.py \
+    /autograder/grading_input.json \
+    /autograder/grading_output.json \
+    /autograder/submission_output.json \
+    > /autograder/results/results.json
+cat /autograder/results/results.json
+echo
