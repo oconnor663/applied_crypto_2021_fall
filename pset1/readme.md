@@ -41,7 +41,9 @@ The problem sets in this course will work like this:
 Rather than writing out all these steps in exhaustive detail, I've made a
 screen recording of myself working through the first problem set. As noted
 below, our copying policy is relaxed for this first problem set, so that you
-can take full advantage of the recording. Please watch it.
+can take full advantage of the recording. Please watch it:
+
+[![problem set 1 walkthrough video](http://img.youtube.com/vi/W0SVEHqy9h4/0.jpg)](http://www.youtube.com/watch?v=W0SVEHqy9h4 "Applied Crypto problem set 1 walkthrough")
 
 Your solutions can be written in any language you like, as long as you can call
 libsodium functions and run your code in the grading environment, an
