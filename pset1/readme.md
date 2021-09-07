@@ -3,7 +3,7 @@
 All the coding problem sets in this course will work like this:
 
 - Your solution will be a standalone program that reads from standard input and
-  writes to standard output. You'll **submit your solution in Gradescope**, and
+  writes to standard output. **You'll submit your solution in Gradescope**, and
   it will be graded automatically.
 - In the grading environment, **your program's stdin will be a JSON object**
   containing all the inputs for all the problems in the problem set. The input
@@ -24,6 +24,11 @@ All the coding problem sets in this course will work like this:
   correct problem is worth a point. There is no partial credit for close
   answers or nearly correct code. Output that isn't valid JSON won't get any
   points.
+- Gradescope is the source of truth for due dates. We'll usually publish
+  solutions for each problem set immediately after the submission deadline
+  expires. Partly for that reason, **Gradescope will not accept any late
+  submissions.** If we need to make accommodations for illness or other life
+  circumstances, we can reach out to the Office of Student Affairs together.
 
 Rather than spelling out all these steps in exhaustive detail, I've made [a
 screen recording](http://www.youtube.com/watch?v=W0SVEHqy9h4) of myself working
