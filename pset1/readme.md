@@ -25,12 +25,15 @@ All the coding problem sets in this course will work like this:
   answers or nearly correct code. Output that isn't valid JSON won't get any
   points.
 
-Rather than spelling out all these steps in exhaustive detail, I've made a
-screen recording of myself working through the first problem set. As noted
-below, our copying policy is relaxed for this first problem set, so that you
-can take full advantage of the recording. Please watch it:
+Rather than spelling out all these steps in exhaustive detail, I've made [a
+screen recording](http://www.youtube.com/watch?v=W0SVEHqy9h4) of myself working
+through the first problem set. As noted below, our copying policy is relaxed
+for this first problem set, so that you can take full advantage of the
+recording. Please watch it:
 
-[![problem set 1 walkthrough video](http://img.youtube.com/vi/W0SVEHqy9h4/0.jpg)](http://www.youtube.com/watch?v=W0SVEHqy9h4 "Applied Crypto problem set 1 walkthrough")
+<a href="http://www.youtube.com/watch?v=W0SVEHqy9h4">
+  <img src="http://img.youtube.com/vi/W0SVEHqy9h4/maxresdefault.jpg" alt="walkthrough video" width="400">
+</a>
 
 ## Programming languages
 
