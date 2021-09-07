@@ -1,10 +1,10 @@
-# How problem sets work
+# How coding problem sets work
 
-The problem sets in this course will work like this:
+All the coding problem sets in this course will work like this:
 
 - Your solution will be a standalone program that reads from standard input and
-  writes to standard output. You'll submit your solution to Gradescope, and it
-  will be graded automatically.
+  writes to standard output. You'll **submit your solution in Gradescope**, and
+  it will be graded automatically.
 - In the grading environment, **your program's stdin will be a JSON object**
   containing all the inputs for all the problems in the problem set. The input
   for Problem 1 will be the `"problem1"` field of that object, the input for
@@ -24,41 +24,31 @@ The problem sets in this course will work like this:
   correct problem is worth a point. There is no partial credit for close
   answers or nearly correct code. Output that isn't valid JSON won't get any
   points.
-- Each problem set will provide an [`example_input.json`](./example_input.json)
-  and an [`example_output.json`](./example_output.json) file for your
-  reference. The [`generate_input.py`](./generate_input.py) and
-  [`grade.py`](./grade.py) scripts will also be available for each problem set,
-  and you might find it useful to test your solutions against these scripts
-  locally. The [`run_solution.py`](../docker/run_solution.py) script can help
-  you make sure your solution is named and organized correctly. If you set up
-  Docker, you can even use the
-  [`build_grading_image.py`](../docker/build_grading_image.py) and
-  [`run_solution_in_docker.py`](../docker/run_solution_in_docker.py) scripts to
-  reproduce the exact grading environment and run your code in it. The only
-  thing hidden from you will be the specific input created by
-  `generated_input.py` that's used for grading on Gradescope.
 
-Rather than writing out all these steps in exhaustive detail, I've made a
+Rather than spelling out all these steps in exhaustive detail, I've made a
 screen recording of myself working through the first problem set. As noted
 below, our copying policy is relaxed for this first problem set, so that you
 can take full advantage of the recording. Please watch it:
 
 [![problem set 1 walkthrough video](http://img.youtube.com/vi/W0SVEHqy9h4/0.jpg)](http://www.youtube.com/watch?v=W0SVEHqy9h4 "Applied Crypto problem set 1 walkthrough")
 
+## Programming languages
+
 Your solutions can be written in any language you like, as long as you can call
-libsodium functions and run your code in the grading environment, an
-Ubuntu-20.04-based Docker container. The grading environment has pre-installed
-support for Python 3, Go, Rust, Java, and C/C++, and if you like you can
-install extra dependencies yourself by including a `setup.sh` script in your
-solution. Lectures and example code will focus on Python, so **doing your
-problem sets in Python will be the lowest-friction choice with the most help
-available**. Adventurous students are encouraged to try Go or Rust. Java is
-mildly discouraged, because it will be higher-friction than Python, and because
-there will be less help available. If you're leaning towards Java because you
-haven't used Python in a while, please seriously consider brushing up on
-Python. But if you love Java, and you're already familiar with command line
-build tools like Gradle, then have at it. Problem sets will be independent of
-each other, so doing different problem sets in different languages is fine.
+libsodium functions (see Problem 4 below) and run your code in the grading
+environment, an Ubuntu-20.04-based Docker container. The grading environment
+has pre-installed support for Python 3, Go, Rust, Java, and C/C++, and if you
+like you can install extra dependencies yourself by including a `setup.sh`
+script in your solution. Lectures and example code will focus on Python, so
+**doing your problem sets in Python will be the lowest-friction choice with the
+most help available**. Please make sure you use Python 3 and not Python 2.
+Adventurous students who want something new are encouraged to try Go or Rust.
+Java is mildly discouraged, because it will be higher-friction than Python, and
+because there will be less help available. If you're leaning towards Java
+because you haven't used Python in a while, please seriously consider brushing
+up on Python. But if you love Java, and you're already familiar with command
+line build tools like Gradle, then have at it. Problem sets will be independent
+of each other, so doing different problem sets in different languages is fine.
 
 ## Cheating policy
 
@@ -80,12 +70,13 @@ automatically make copying ok, but failing to cite your source turns one
 violation into two violations. Please don't explore the gray area of what
 counts as a "line of code".
 
-The sole exception to this policy is here in Problem Set 1, where I'll provide
-a screen recording and example solutions in several languages, to help everyone
-get their tools set up and get used to the problem set structure. For this
-problem set, and only this problem set, it's ok if you copy my code.
+The sole exception to this policy is here in Problem Set 1, where we've
+provided the screen recording above and example solutions in several languages,
+to help everyone get their tools set up and get used to the problem set
+structure. For this problem set, and only this problem set, it's ok if you copy
+our code.
 
-# Problem Set 1
+# Coding Problem Set 1
 
 Example input:
 
@@ -125,6 +116,9 @@ Example output:
 }
 ```
 
+If you're not sure what to do with these inputs and outputs, and you haven't
+yet watched the walkthrough video above, **please watch the video**.
+
 ## Problem 1
 
 Let's start with a small arithmetic problem, to get used to reading JSON input
@@ -157,8 +151,50 @@ string, e.g. `"68656c6c6f20776f726c64"`
 
 ## Problem 4
 
-Finally, let's play with some crypto! Your input will be an encrypted message
-in the NaCl/Sodium secretbox format. You need to decrypt it, using
+Finally, let's play with some crypto! Before you can do these last two
+problems, you'll need to get set up with libsodium. The recommended way to do
+that in Python is to install the
+[PyNaCl](https://pynacl.readthedocs.io/en/latest/) library. You can take a look
+at their [installation
+instructions](https://pynacl.readthedocs.io/en/latest/install/#), but in short
+you're going to run:
+
+```
+pip install pynacl
+```
+
+Pip is the standard Python tool for downloading and installing new
+modules/libraries. In many cases that command will Just Work. Unfortunately, it
+might work a little differently depending on what operating system you're using
+(Windows/macOS/Linux) and how you installed Python (from the official website,
+or with Chocolatey/Homebrew/apt-get/etc). In some cases, particularly on macOS
+and Ubuntu, `python` and `pip` may be called `python3` and `pip3`. If `pip
+install pynacl` doesn't seem to work, or if it prints scary deprecation
+warnings about Python 2, you might need to try `pip3 install pynacl`. You'll
+know you've got it when you can run the Python 3 interpreter and `import nacl`
+without any errors, like this:
+
+```
+$ python
+Python 3.9.6 (default, Jun 30 2021, 10:22:16)
+[GCC 11.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import nacl
+>>>
+```
+
+I apologize in advance for the suffering that some students will go through to
+get Python and Pip working. I hope it's some consolation that, once you've
+figured it out, you'll have opened up [an entire universe of Python
+packages](https://pypi.org/) that you can use for [all
+sorts](https://seaborn.pydata.org/examples/index.html) of [fun
+stuff](https://towardsdatascience.com/animations-with-matplotlib-d96375c5442c).
+For students working with Go, Rust, or Java, take a look at how the example
+solutions for this problem set are set up. For students working in other
+languages, good luck and Godspeed.
+
+Anyway, back to Problem 4: Your input will be an encrypted message in the
+NaCl/Sodium secretbox format. You need to decrypt it, using
 [`nacl.secret.SecretBox.decrypt`](https://pynacl.readthedocs.io/en/latest/secret/#nacl.secret.SecretBox.decrypt)
 (in Python) or any other equivalent of the libsodium
 [`crypto_secretbox_open_easy`](https://doc.libsodium.org/secret-key_cryptography/secretbox)
@@ -173,15 +209,16 @@ nonce is twenty-four `B` (0x42) bytes.
 
 Ok, now we know how to open a secretbox. You can try encrypting your own
 messages if you like, but for the final problem in this set, we're going to
-stick with decryption and look and an important fact that you might've already
-noticed: Decryption can fail.
+stick with decryption and look and an important fact that you might already
+have noticed: Decryption can fail.
 
 It turns out that secretbox is doing more than meets the eye. We'll wait to
 dive into the nitty gritty details until we get to "authenticated encryption"
 (chapter 8 in Serious Cryptography). But in the meantime, just notice that if
 you try to decrypt some random garbage bytes, you don't get a random garbage
-answer. Instead, you get an error. Take a few minutes to play with this. Try
-decrypting a legitimate ciphertext using the wrong key or the wrong nonce too.
+answer. Instead, you get an error. Take a few minutes to play with this. You
+can try decrypting the ciphertext from Problem 4 above using the wrong key or
+the wrong nonce too.
 
 Your input for this problem is a list of candidate ciphertexts, each encoded as
 a hexadecimal string. Only one of these ciphertexts is valid. The others are
