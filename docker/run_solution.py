@@ -6,13 +6,13 @@ import subprocess
 import sys
 
 
-def eprint(s):
-    print(s, file=sys.stderr)
-    sys.exit(1)
+def eprint(*args):
+    print(*args, file=sys.stderr)
 
 
 if len(sys.argv) != 2:
     eprint("Usage: run_solution.py <dir>")
+    sys.exit(1)
 
 solution_dir = sys.argv[1]
 if not path.exists(solution_dir):
