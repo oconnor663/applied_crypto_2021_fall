@@ -40,8 +40,8 @@ copy code from these examples. I've also made a screen recording of myself
 writing a solution and submitting it. I recommend everyone watch this
 recording:
 
-<a href="http://www.youtube.com/watch?v=W0SVEHqy9h4">
-  <img src="http://img.youtube.com/vi/W0SVEHqy9h4/maxresdefault.jpg" alt="walkthrough video" width="400">
+<a href="http://www.youtube.com/watch?v=b0gGlcHvfY0">
+  <img src="http://img.youtube.com/vi/b0gGlcHvfY0/maxresdefault.jpg" alt="walkthrough video" width="400">
 </a>
 
 ## Programming languages
