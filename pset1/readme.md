@@ -5,8 +5,8 @@ All the coding problem sets in this course will work like this:
 - Your solution will be a standalone program that reads from standard input and
   writes to standard output. **You'll submit your solution to Gradescope**, and
   it'll be graded automatically. The name of your program is important. The
-  grading program will look for `solution.py`, `solution.sh`, or one of a short
-  list of known project files. For all the details, look at what the
+  grading program will look for `solution.py`, `solution.sh`, or a short list
+  of other known project files. For the exact details, look at what the
   [`run_solution.py`](../docker/run_solution.py) script does.
 - In the grading environment, **your program's stdin will be a JSON object**
   containing all the inputs for all the problems in the problem set. The input
@@ -33,11 +33,12 @@ All the coding problem sets in this course will work like this:
   submissions.** If we need to make accommodations for illness or other life
   circumstances, we can reach out to the Office of Student Affairs together.
 
-Rather than spelling out all these steps in exhaustive detail, I've made [a
-screen recording](http://www.youtube.com/watch?v=W0SVEHqy9h4) of myself working
-through the first problem set. As noted below, our copying policy is relaxed
-for this first problem set, so that you can take full advantage of the
-recording. Please watch it:
+To help everyone get up to speed on the first problem set, complete example
+solutions in several languages are provided [in this folder](./). As noted
+below, our copying policy is relaxed for this first problem set, and it's ok to
+copy code from these examples. I've also made a screen recording of myself
+writing a solution and submitting it. I recommend everyone watch this
+recording:
 
 <a href="http://www.youtube.com/watch?v=W0SVEHqy9h4">
   <img src="http://img.youtube.com/vi/W0SVEHqy9h4/maxresdefault.jpg" alt="walkthrough video" width="400">
@@ -53,13 +54,14 @@ like you can install extra dependencies yourself by including a `setup.sh`
 script in your solution. Lectures and example code will focus on Python, so
 **doing your problem sets in Python will be the lowest-friction choice with the
 most help available**. Please make sure you use Python 3 and not Python 2.
-Adventurous students who want something new are encouraged to try Go or Rust.
-Java is mildly discouraged, because it will be higher-friction than Python, and
-because there will be less help available. If you're leaning towards Java
-because you haven't used Python in a while, please seriously consider brushing
-up on Python. But if you love Java, and you're already familiar with command
-line build tools like Gradle, then have at it. Problem sets will be independent
-of each other, so doing different problem sets in different languages is fine.
+Adventurous students looking for something new are encouraged to try Go or
+Rust. Java is mildly discouraged, because it will be higher-friction than
+Python, and because there will be less help available. If you're leaning
+towards Java because you haven't used Python in a while, please seriously
+consider brushing up on Python. But if you love Java, and you're already
+familiar with command line build tools like Gradle, then have at it. Problem
+sets will be independent of each other, so doing different problem sets in
+different languages is fine.
 
 ## Cheating policy
 
@@ -127,7 +129,7 @@ Example output:
 }
 ```
 
-If you're not sure what to do with these inputs and outputs, and you haven't
+If you're not sure how to work with these inputs and outputs, and you haven't
 yet watched the walkthrough video above, **please watch the video**.
 
 ## Problem 1
