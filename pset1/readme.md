@@ -4,9 +4,11 @@ All the coding problem sets in this course will work like this:
 
 - Your solution will be a standalone program that reads from standard input and
   writes to standard output. **You'll submit your solution to Gradescope**, and
-  it'll be graded automatically. The name of your program is important. The
-  grading program will look for `solution.py`, `solution.sh`, or a short list
-  of other known project files. For the exact details, look at what the
+  it'll be graded automatically. There's no limit to the number of times you
+  can submit.
+- The name of your program is important. The grading program will look for
+  `solution.py`, `solution.sh`, or a short list of other known project files.
+  For the exact details, look at what the
   [`run_solution.py`](../docker/run_solution.py) script does.
 - In the grading environment, **your program's stdin will be a JSON object**
   containing all the inputs for all the problems in the problem set. The input
