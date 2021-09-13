@@ -14,20 +14,45 @@ fi
 # solution's exit status, so an early exit here will only happen if no solution
 # is found.
 echo "Running solution..."
-python3 /autograder/run_solution.py \
+if python3 /autograder/run_solution.py \
     /autograder/submission \
     < /autograder/grading_input.json \
-    > /autograder/submission_output.json
-cat /autograder/submission_output.json
-echo
+    > /tmp/solution_stdout \
+    2> /tmp/solution_stderr
+then
+    solution_found=1
+else
+    solution_found=0
+fi
 
-# Grade the output.
-echo "Grading..."
-mkdir -p /autograder/results
-python3 /autograder/grade.py \
-    /autograder/grading_input.json \
-    /autograder/grading_output.json \
-    /autograder/submission_output.json \
-    > /autograder/results/results.json
+solution_outputs="$(
+    echo "stdout:"
+    cat /tmp/solution_stdout
+    echo
+    echo "stderr:"
+    cat /tmp/solution_stderr
+)"
+echo "$solution_outputs"
+
+if [[ "$solution_found" = 0 ]] ; then
+    # run_solution.py only fails when the solution is not found or fails to
+    # execute. In that case, reveal its output through Gradescope. (Normally we
+    # don't want to reveal output, because the correct answers are supposed to
+    # remain secret.)
+    echo "$solution_outputs" | python3 -c \
+        'import sys; import json; json.dump({"score":0,"output":sys.stdin.read()}, sys.stdout)' \
+        > /autograder/results/results.json
+else
+    # Grade the output.
+    echo "Grading..."
+    mkdir -p /autograder/results
+    python3 /autograder/grade.py \
+        /autograder/grading_input.json \
+        /autograder/grading_output.json \
+        /tmp/solution_stdout \
+        > /autograder/results/results.json
+fi
+
+# Cat the results so that we can see them if we're grading manually.
 cat /autograder/results/results.json
 echo

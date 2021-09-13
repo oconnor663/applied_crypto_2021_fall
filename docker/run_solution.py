@@ -31,16 +31,16 @@ def run_solution(cmd):
 
 
 # Look for solution files in this order:
-#   - solution.sh
 #   - solution.py
+#   - solution.sh
 #   - Cargo.toml (Rust project)
 #   - go.mod (Go project)
 #   - settings.gradle (Java project)
 # If more than one is found, only execute the first one found.
-if solution_exists("solution.sh"):
-    run_solution(["bash", "solution.sh"])
-elif solution_exists("solution.py"):
+if solution_exists("solution.py"):
     run_solution([sys.executable, "solution.py"])
+elif solution_exists("solution.sh"):
+    run_solution(["bash", "solution.sh"])
 elif solution_exists("Cargo.toml"):
     os.environ["RUST_BACKTRACE"] = "1"
     run_solution(["cargo", "run"])
@@ -49,9 +49,9 @@ elif solution_exists("go.mod"):
 elif solution_exists("settings.gradle"):
     run_solution(["gradle", "run", "--quiet"])
 else:
-    eprint("No executable solution found. Solution may be one of:")
-    eprint("  - solution.sh")
+    eprint("No solution found. You need one of these files at the root:")
     eprint("  - solution.py")
+    eprint("  - solution.sh")
     eprint("  - Cargo.toml (Rust project)")
     eprint("  - go.mod (Go project)")
     eprint("  - settings.gradle (Java project)")
