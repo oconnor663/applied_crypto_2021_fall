@@ -56,4 +56,8 @@ for ciphertext_hex in ciphertext_list:
     break
 
 # Output
+#
+# In the video I wrote something more like `json.dump(outputs, sys.stdout)`.
+# Either way works. This way adds some indentation and a trailing newline,
+# which makes things look nicer in the terminal.
 print(json.dumps(outputs, indent="  "))
