@@ -1,0 +1,35 @@
+{
+  "problem1": "sheep cat rhinoceros",
+  "problem2": {
+    "pad": "ee4a1c78ed39161f52e51c11a85fd3ed9893af3fd093acc30d",
+    "ciphertext": "9925711a8c4d367d27916874da39bf94b8f8ce51b7f2deac62"
+  },
+  "problem3": [
+    "9a31167bc4cd24dd95aa4d53e6d938ac8d184b43d1dfd1e7bbaa1b7c1c06",
+    "c6705c30838c7298c5e11904e2937dfade540e0bd59980b7ebeb4d3e545b"
+  ],
+  "problem4": [
+    "iguana jaguar cat",
+    "turkey narwhal turkey",
+    "aardvark llama iguana"
+  ],
+  "problem5": [
+    "56fd5c6607ab3e356e759351745c6dd44d03c045c318e25ff351a937f56b29405d1d9f",
+    "c07bf0b21831c709fa15f487c5cc25d60390ca307e1ae230055f2a6865e0d2620d9f8669af42aec6a1cf755e518c19",
+    "6f7e2e7c0c3eab29a45d3d4379706095a53356927033dad827915cda1fb7a62c46d4"
+  ],
+  "problem6": [
+    "cd7e1bef27f766976efd1ee3d73584152f78f10ed72daac831449e706c554cb985d8f276e0270014",
+    "ee1baa3829a2cc481346874fce414ff2663dbb4b876cebcc6315d6203d030dbdc490b322ac624a44"
+  ],
+  "problem7": [
+    "giraffe butterfly dog",
+    "wombat unicorn fox",
+    "hippopotamus xenoceratops manatee"
+  ],
+  "problem8": [
+    "f67c3f2187514cbdcd2eae87dc6bbed4cbce07a8327f9dbd1dedabde2b6568a25249c771cb1621555875a2085e0f03e99aebf84eb2",
+    "00a4ec1dd07ba36a3d5e1b73b0598ac709d3552306fdecb3e8317c828aca50518ebed8c1727cb585baaf0b16c028ab5fd1d55db6ea8ef8d8a5",
+    "b5ab7b32b10c2a3f5953d45c73f4bd7c63196eaef87edfb0dd688d3c123d3acbf3a5633cbbaa815ffca5e5a4db8273316f14bc737d02cb7e91"
+  ]
+}

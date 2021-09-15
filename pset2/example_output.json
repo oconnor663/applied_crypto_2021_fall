@@ -1,0 +1,29 @@
+{
+  "problem1": {
+    "pad": "9fe23b4361f637cbd3ae10a281be212982fd2b14",
+    "ciphertext": "ec8a5e2611d654aaa78e62cae8d04e4ae78f4467"
+  },
+  "problem2": "wombat butterfly kangaroo",
+  "problem3": "xenoceratops narwhal butterfly",
+  "problem4": [
+    "a1387edae3d03643204b1eb86039d604f62b8e942598980ffd4c1f5c9811472a9c",
+    "e5b89aad267e7c369e53326e200a503aed06b26599803086719b5f0b22aedd9b639e700cfd",
+    "c7453a9d3c5a73f0a8e7ef407f9ae569a824bd57f493fad81c083414aacd13cb76e3d89f41"
+  ],
+  "problem5": [
+    "yak kangaroo jaguar",
+    "hippopotamus vulture rhinoceros",
+    "quail llama iguana"
+  ],
+  "problem6": "manatee vulture elephant",
+  "problem7": [
+    "23338577c487823367c70c680086b7d3d24cc223fb1b382fc3d1e24115057879b2758dc0e4e0036fbeb66abfcda16dfe38c7789b7c8712465b0b7c0ac1",
+    "6482625c19ce2fb575ed8cb5999fe5064f601349770f2f559461d5d31655f0a744496ebd1119b49c8cc37c5991c049552b7a2674fb509cc4085a",
+    "844c0f7dfffb47e2e50a41ef8736fc6b6e586e7cea1395ac55b437bc1493ae1ec054eb1a1521b41a0c59371e201e9bb0cd5f90d1025a74867ee1134555d8c811fa83f4be153337dccd"
+  ],
+  "problem8": [
+    "fox yak sheep",
+    "pig llama narwhal",
+    "vulture dog quail"
+  ]
+}
