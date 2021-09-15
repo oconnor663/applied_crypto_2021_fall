@@ -209,12 +209,26 @@ solutions for this problem set are set up. For students working in other
 languages, good luck and Godspeed.
 
 Anyway, back to Problem 4: Your input will be an encrypted message in the
-NaCl/Sodium secretbox format. You need to decrypt it, using
+NaCl/Sodium secretbox format. Your output should be the decrypted plaintext, an
+ASCII string. You need to decrypt it using
 [`nacl.secret.SecretBox.decrypt`](https://pynacl.readthedocs.io/en/latest/secret/#nacl.secret.SecretBox.decrypt)
 (in Python) or any other equivalent of the libsodium
 [`crypto_secretbox_open_easy`](https://doc.libsodium.org/secret-key_cryptography/secretbox)
-function. The key for this message is thirty-two `A` (0x41) bytes, and the
-nonce is twenty-four `B` (0x42) bytes.
+function. Using `SecretBox.decrypt` looks something like this:
+
+```python
+from nacl.secret import SecretBox
+
+plaintext = SecretBox(key).decrypt(ciphertext, nonce)
+```
+
+The key for this message is thirty-two `A` (0x41) bytes, and the nonce is
+twenty-four `B` (0x42) bytes. What exactly is a "nonce"? We'll talk more about
+that in the next class and in the next problem set, but if you'd like to read
+ahead, take a look at [the `SecretBox`
+docs](https://pynacl.readthedocs.io/en/latest/secret/#nonce). (It's always a
+good idea to read the docs of any library you rely on, especially for
+security.)
 
 **Input:** an encrypted ciphertext, encoded as a hexadecimal string
 
