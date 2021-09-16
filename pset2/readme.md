@@ -311,7 +311,8 @@ Let's try it out. Your input for this problem is a list of ASCII strings to be
 encrypted. Encrypt each of them with secretbox using a key consisting of
 thirty-two `C` (0x43) bytes, and a (distinct!) random nonce. Prepend each nonce
 to the ciphertext that was encrypted with it, or allow PyNaCl to do that for
-you. Your output should be the list of hex-encoded ciphertexts.
+you by writing `.encrypt(...)` instead of `.encrypt(...).ciphertext`. Your
+output should be the list of hex-encoded ciphertexts.
 
 Because this problem involves generating your own randomness, the grading
 program won't expect your outputs to be equal to anything in particular.
