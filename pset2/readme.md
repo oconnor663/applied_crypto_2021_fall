@@ -4,38 +4,38 @@ Example input:
 
 ```json
 {
-  "problem1": "zebra hippopotamus yak",
+  "problem1": "sheep cat rhinoceros",
   "problem2": {
-    "pad": "861064c995db4ef2331197b006c93870d176c95a0ec7edff73",
-    "ciphertext": "f06508bde0a92bd25478e5d160af5d50b303bd2e6bb58b930a"
+    "pad": "ee4a1c78ed39161f52e51c11a85fd3ed9893af3fd093acc30d",
+    "ciphertext": "9925711a8c4d367d27916874da39bf94b8f8ce51b7f2deac62"
   },
   "problem3": [
-    "ddadb3d736b5578e444effa4c42c5dcefb8608d2821899c0c4",
-    "97e8e5847af01f8a1202b2ee8f6b1c98b0d10c81c951df8594"
+    "9a31167bc4cd24dd95aa4d53e6d938ac8d184b43d1dfd1e7bbaa1b7c1c06",
+    "c6705c30838c7298c5e11904e2937dfade540e0bd59980b7ebeb4d3e545b"
   ],
   "problem4": [
-    "jaguar rhinoceros butterfly",
-    "manatee llama quail",
-    "narwhal dog elephant"
+    "iguana jaguar cat",
+    "turkey narwhal turkey",
+    "aardvark llama iguana"
   ],
   "problem5": [
-    "c8614be36608f575def5be10837bdf41f02f8f9a3b8ccb45ff4a1e1d9959412e98",
-    "fc070700995010a48727e29c32901941ef06ac7a898b75c877805a0225a498cf71856908e26f37",
-    "a6f05c747a06042ee83c684bfec2994da424a152f697ed934c0d3f55aacd5dc365f3dc"
+    "56fd5c6607ab3e356e759351745c6dd44d03c045c318e25ff351a937f56b29405d1d9f",
+    "c07bf0b21831c709fa15f487c5cc25d60390ca307e1ae230055f2a6865e0d2620d9f8669af42aec6a1cf755e518c19",
+    "6f7e2e7c0c3eab29a45d3d4379706095a53356927033dad827915cda1fb7a62c46d4"
   ],
   "problem6": [
-    "19cb5853deeee788223eadf0ae15b1b0890170f2c3a92ad5722d3d5bdab186b1d4632f",
-    "43e6335320e8f607ecfea0d78db71ebbc0443ab793e86bd125617c1a8eb5d3e0912e67"
+    "cd7e1bef27f766976efd1ee3d73584152f78f10ed72daac831449e706c554cb985d8f276e0270014",
+    "ee1baa3829a2cc481346874fce414ff2663dbb4b876cebcc6315d6203d030dbdc490b322ac624a44"
   ],
   "problem7": [
-    "kangaroo kangaroo sheep",
-    "jaguar aardvark aardvark",
-    "hippopotamus llama elephant"
+    "giraffe butterfly dog",
+    "wombat unicorn fox",
+    "hippopotamus xenoceratops manatee"
   ],
   "problem8": [
-    "1155384ba10ebc98ed5f90c7edc5838892a3400d48c39d9e4ec1b9a21c9595d78d1a01fb141bb3c306e096ece342133e0333fd224131241de2",
-    "29282748ad89052cac79285eed183549842fb6004357a7fd627a2dc4631a03e19524b4e23f5ba64697919fbf087b76e226bbabf78605cdf8924f2b0ccdc6",
-    "6b90216949ba64f519ccc3bfef7a6db40ad5c95d1f4e565713727f5a329c456652218dbc6734cde6656cc521eba28b82c7bf0ee61d432f05edd3"
+    "f67c3f2187514cbdcd2eae87dc6bbed4cbce07a8327f9dbd1dedabde2b6568a25249c771cb1621555875a2085e0f03e99aebf84eb2",
+    "00a4ec1dd07ba36a3d5e1b73b0598ac709d3552306fdecb3e8317c828aca50518ebed8c1727cb585baaf0b16c028ab5fd1d55db6ea8ef8d8a5",
+    "b5ab7b32b10c2a3f5953d45c73f4bd7c63196eaef87edfb0dd688d3c123d3acbf3a5633cbbaa815ffca5e5a4db8273316f14bc737d02cb7e91"
   ]
 }
 ```
@@ -45,31 +45,31 @@ Example output:
 ```json
 {
   "problem1": {
-    "pad": "52bc13142c98384d45ad95c3829f870158e983d01f66",
-    "ciphertext": "28d971664db8502435ddfab3edebe66c2d9aa3a97e0d"
+    "pad": "9fe23b4361f637cbd3ae10a281be212982fd2b14",
+    "ciphertext": "ec8a5e2611d654aaa78e62cae8d04e4ae78f4467"
   },
-  "problem2": "vulture giraffe butterfly",
-  "problem3": "narwhal rhinoceros wombat",
+  "problem2": "wombat butterfly kangaroo",
+  "problem3": "xenoceratops narwhal butterfly",
   "problem4": [
-    "84fae54aa7abce4daeecd908411da478f52d9c802a8b9817f4420452895456249b552b8c5d463e1f52a3ed",
-    "2dbbeb3ad7a2994232c6a868d1b31791f412ae6f889c75c87c85490e22e28c9a778577",
-    "d3bd36aac6abaea92d2c07aedff9baf8a724bd44ea93e493580b3f55a2c056d279f7d785"
+    "a1387edae3d03643204b1eb86039d604f62b8e942598980ffd4c1f5c9811472a9c",
+    "e5b89aad267e7c369e53326e200a503aed06b26599803086719b5f0b22aedd9b639e700cfd",
+    "c7453a9d3c5a73f0a8e7ef407f9ae569a824bd57f493fad81c083414aacd13cb76e3d89f41"
   ],
   "problem5": [
-    "octopus cat sheep",
-    "vulture giraffe giraffe",
-    "manatee pig manatee"
+    "yak kangaroo jaguar",
+    "hippopotamus vulture rhinoceros",
+    "quail llama iguana"
   ],
-  "problem6": "manatee sheep quail",
+  "problem6": "manatee vulture elephant",
   "problem7": [
-    "a9eafdff4c685a6c7260cbc15e7a7accd7ddfe76211876b881fcee8574b0a7de2b53d7897867587f505d0470f34a52e2385c2a740811aaef420191b3332d81",
-    "4f6e8d1baa502105f6674ebef3a05e05406c18eb8cb8f321b11c9cf244ac16e271a808b1e2715d43b4edc8de7adc18045bb0c8fa712fb9890a832957d4447279",
-    "b12b3e31f4abc64c9ec6a70f1f844c56833c30edb8fdb7e478ad295da624b3b408de29c4fa647dbd4f187123b55c4ef4e469c26afe21e05cbdce3e5fed720d5b6ccd2f"
+    "23338577c487823367c70c680086b7d3d24cc223fb1b382fc3d1e24115057879b2758dc0e4e0036fbeb66abfcda16dfe38c7789b7c8712465b0b7c0ac1",
+    "6482625c19ce2fb575ed8cb5999fe5064f601349770f2f559461d5d31655f0a744496ebd1119b49c8cc37c5991c049552b7a2674fb509cc4085a",
+    "844c0f7dfffb47e2e50a41ef8736fc6b6e586e7cea1395ac55b437bc1493ae1ec054eb1a1521b41a0c59371e201e9bb0cd5f90d1025a74867ee1134555d8c811fa83f4be153337dccd"
   ],
   "problem8": [
-    "quail giraffe yak",
-    "llama pig xenoceratops",
-    "kangaroo dog llama"
+    "fox yak sheep",
+    "pig llama narwhal",
+    "vulture dog quail"
   ]
 }
 ```
