@@ -170,6 +170,13 @@ a ^ p ^ b ^ p == a ^ b ^ p ^ p
               == a ^ b
 ```
 
+If `a` and `b` here represent two plaintext bytes, and `p` represents a pad
+byte, then this xor procedure will "cancel out the pad". (Then you have to
+figure out what to do with `a ^ b`.) An alternative approach to this problem is
+to figure out how to "recover the pad" from the first plaintext. (Then you can
+decrypt the second ciphertext as you did in Problem 2 above.) If you have time,
+experiment with both approaches.
+
 **Input:** a list of two hex-encoded ciphertexts of the same length
 
 **Output:** the second decrypted plaintext, an ASCII string
@@ -210,10 +217,11 @@ Your input for this problem is a list of strings. Encrypt each string using
 function. The key for every message is thirty-two `A` (0x41) bytes. For the
 nonce, use an incrementing counter, 0 for the first string, 1 for the second
 string, and so on. Encode each counter value as twenty-four bytes in
-**little-endian** order, that is `[0, 0, ..., 0]`, `[1, 0, ..., 0]`, and so on.
-In Python, if you have an integer variable called `counter`, you can use the
-expression `counter.to_bytes(24, "little")`. Your output should be the list of
-these ciphertexts, each encoded as a hex string.
+[little-endian order](https://en.wikipedia.org/wiki/Endianness), that is `[0,
+0, ..., 0]`, `[1, 0, ..., 0]`, and so on. In Python, if you have an integer
+variable called `counter`, you can use the expression `counter.to_bytes(24,
+"little")`. Your output should be the list of these ciphertexts, each encoded
+as a hex string.
 
 If you're using Python/PyNaCl, note that the `nacl.secret.SecretBox.encrypt`
 method prepends the nonce bytes to the ciphertext by default. We'll see why it
@@ -247,7 +255,7 @@ your previous output, encrypted with a key of thirty-two `B` (0x42) bytes and a
 sequential nonce starting from 0, decrypt the messages.
 
 Note that the key in this problem is _not the same_ as the key in Problem 4. If
-it were, we'd be breaking the nonce rule! You should never, ever break that
+it was, we'd be breaking the nonce rule! You should never, ever break that
 rule, and I'm never going to break it in this class...except in the very next
 problem...
 
@@ -258,23 +266,29 @@ problem...
 ## Problem 6: What happens when you reuse a nonce?
 
 Reusing a nonce with the same key is always bad, but exactly how bad it is
-depends on what cipher you're using. For the XSalsa20 cipher that secretbox is
-based on, it turns out it's just as bad as it was with the one-time pad. Which
-is to say, really *really* bad!
+depends on what cipher you're using. For the XSalsa20 stream cipher that
+secretbox is based on, it turns out it's just as bad as it was with the
+one-time pad. Which is to say, really *really* bad!
 
 Your input for this problem is a pair of hex-encoded secretbox messages, which
 have been encrypted with the same key and nonce. (Oops!) Similar to Problem 3,
 you don't know anything about the key or the nonce, but you do know that the
 first plaintext consists entirely of `$` (0x24) characters. It turns out you
-can decrypt the second plaintext using the same procedure as in Problem 3. The
-only difference is that the first 16 bytes of each secretbox ciphertext are
-random-looking junk that you should strip off and ignore for now.
-(Specifically, they're Poly1305 authenticator tags. We'll talk more about these
-when we get to Chapters 7 and 8 of *Serious Cryptography*.)
+can decrypt the second plaintext using the same procedure as in Problem 3.
+Close your eyes and pretend that these two ciphertexts were encrypted with the
+same one-time pad, and then repeat the xor attack. The only difference this
+time is that the first 16 bytes of each secretbox ciphertext are random-looking
+junk that you should strip off and ignore for now. (Specifically, they're
+Poly1305 authenticator tags. We'll talk more about these when we get to
+Chapters 7 and 8 of *Serious Cryptography*.)
 
 **Input:** a list of two hex-encoded secretbox ciphertexts of the same length
 
 **Output:** the second decrypted plaintext, an ASCII string
+
+Is it surprising that this works? Secretbox isn't a one-time pad, but it turns
+out that they have a lot in common. We'll talk all about this when we get to
+stream ciphers in Chapter 5 of *Serious Cryptography*.
 
 **CAUTION:** The one-time pad reuse mistake we saw in Problem 3 isn't very
 common in practice, because we don't often use one-time pads directly. But
