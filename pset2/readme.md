@@ -328,6 +328,9 @@ to the ciphertext that was encrypted with it, or allow PyNaCl to do that for
 you by writing `.encrypt(...)` instead of `.encrypt(...).ciphertext`. Your
 output should be the list of hex-encoded ciphertexts.
 
+Remember that in Python, byte strings (like regular strings) can be
+"concatenated" using the `+` operator.
+
 Because this problem involves generating your own randomness, the grading
 program won't expect your outputs to be equal to anything in particular.
 Instead, it'll check that it when it decrypts your ciphertext using the nonce
@@ -345,6 +348,10 @@ output above. Hex-decode each ciphertext, extract the 24-byte nonce from the
 front (or allow PyNaCl to do it for you by omitting the nonce argument), and
 decrypt with the same key consisting of thirty-two `C` (0x43) bytes. Your
 output should be the list of decrypted plaintexts, all ASCII strings.
+
+Remember that in Python, you can get the first 24 bytes of `some_bytes` by
+writing `some_bytes[0:24]` or just `some_bytes[:24]`, and you can get all the
+rest by writing `some_bytes[24:len(some_bytes)]` or just `some_bytes[24:]`.
 
 **Input:** a list of hex-encoded ciphertexts, with their random nonces prepended prior to hex-encoding
 
