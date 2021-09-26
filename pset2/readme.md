@@ -1,5 +1,11 @@
 # Coding Problem Set 2: Randomness
 
+A 13m31s walkthrough of the new autograder output and some common JSON mistakes to avoid:
+
+<a href="http://www.youtube.com/watch?v=ggxynlq6FmM">
+  <img src="http://img.youtube.com/vi/ggxynlq6FmM/maxresdefault.jpg" alt="walkthrough video" width="400">
+</a>
+
 Example input:
 
 ```json

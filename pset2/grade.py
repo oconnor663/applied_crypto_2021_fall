@@ -20,7 +20,7 @@ def check_equality(_, expected, submitted):
 
 
 def xor_bytes(a, b):
-    assert len(a) == len(b)
+    assert len(a) == len(b), "cannot xor two things of different lengths"
     return bytes(x ^ y for x, y in zip(a, b))
 
 

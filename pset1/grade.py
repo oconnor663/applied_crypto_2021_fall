@@ -41,6 +41,7 @@ for problem in expected_obj:
     problem_objects.append(problem_object)
 
 output = {
+    "stdout_visibility": "visible",
     "tests": problem_objects,
 }
 json.dump(output, sys.stdout, indent="  ")
