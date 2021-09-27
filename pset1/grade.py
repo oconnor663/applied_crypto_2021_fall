@@ -9,7 +9,7 @@ def eprint(s, end="\n"):
 
 
 if len(sys.argv) != 4:
-    eprint("Usage: check.py <inputs> <expected> <submitted>")
+    eprint("Usage: grade.py <inputs> <expected> <submitted>")
     sys.exit(1)
 
 with open(sys.argv[1]) as f:

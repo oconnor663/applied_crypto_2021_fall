@@ -143,7 +143,7 @@ name, always ask yourself, "Is this cryptographic randomness or not?"
 
 This is the inverse of Problem 1. Your input is an object with two hex-encoded
 fields, `"pad"` and `"ciphertext"`, of the same form as your output above.
-Decode those strings and decrypt the ciphertext by xor'ing it with the pad.
+Hex-decode those strings and decrypt the ciphertext by xor'ing it with the pad.
 Your output should be the resulting plaintext, as an ASCII string.
 
 When you're done, notice how your decryption code in this problem looks just
