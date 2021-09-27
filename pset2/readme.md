@@ -265,7 +265,7 @@ it was, we'd be breaking the nonce rule! You should never, ever break that
 rule, and I'm never going to break it in this class...except in the very next
 problem...
 
-**Input:** a list of hex-encoded ciphertexts to be decrypted, made with the nonce schedule described above
+**Input:** a list of hex-encoded ciphertexts to be decrypted, made with the same nonce schedule as in Problem 4
 
 **Output:** a list of decrypted plaintexts, all ASCII strings
 
