@@ -8,6 +8,7 @@ import json
 
 def xor_bytes(a, b):
     assert len(a) == len(b)
+    # the one-liner version, using a "generator expression" and the "zip iterator"
     return bytes(x ^ y for x, y in zip(a, b))
 
 
