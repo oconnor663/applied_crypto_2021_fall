@@ -1,0 +1,27 @@
+{
+  "problem1": "unicorn turkey q",
+  "problem2": "102bc4cd193726b33eaa0d27ff2dc67c",
+  "problem3": "cat llama iguana dog butterfly fox narwhal zebra vulture fox quail fox butterfly",
+  "problem4": "ef050b9990fd7bac0cebbea289ffe5ccb58a6d94921550cf07aac57e568428b1216df2c44778be8c11c882ae8a4d11b2",
+  "problem5": [
+    "7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a",
+    "7a65627261207268696e6f6365726f732076756c74757265",
+    "656c657068616e742079616b20776f6d62617420627574746572666c79",
+    "7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a"
+  ],
+  "problem6": [
+    "616172647661726b207475726b6579207475726b65790a0a0a0a0a0a0a0a0a0a",
+    "636174207a656272612079616b030303",
+    "79616b207a656272612076756c747572650f0f0f0f0f0f0f0f0f0f0f0f0f0f0f"
+  ],
+  "problem7": {
+    "lyrics": "John Jacob Jingleheimer Schmidt! His name is my name too. Whenever we go out the people always shout there goes John Jacob Jingleheimer Schmidt! Nanananananana...",
+    "key": "35f34a75e1f72a5361ea373dbe0d5229"
+  },
+  "problem8": {
+    "key": "9171120a57e34cde9c4aaddda4310b5f",
+    "nonce": "fb933f17f2163c9cf2a6ccac",
+    "plaintext": "manatee elephant unicorn unicorn sheep"
+  },
+  "problem9": "f7b6290e3844911e16628a79d4316041"
+}
