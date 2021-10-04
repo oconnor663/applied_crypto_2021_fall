@@ -283,9 +283,9 @@ The clearly visible outline of the "encrypted" penguin is proof that ECB mode
 isn't giving us privacy. A good cipher should have output that's totally
 indistinguishable from random, no matter the input.
 
-Let's reproduce this effect ourselves. Instead of than messing around with
-pixels, we can accomplish the same thing with some lyrics from [a song that
-some of you might know](https://youtu.be/-ebTwbutN9I?t=46).
+Let's reproduce this effect ourselves. Instead of messing around with pixels,
+we can accomplish the same thing with some lyrics from [a song that some of you
+might know](https://youtu.be/-ebTwbutN9I?t=46).
 
 Your input for this problem as an object with two fields. The `"lyrics"` field
 is an ASCII string containing a few lines from that song. Unlike most of our
