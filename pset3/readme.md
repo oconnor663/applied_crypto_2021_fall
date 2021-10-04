@@ -359,6 +359,11 @@ multiple of 16. Your output should be the resulting ciphertext, encoded as hex.
 
 **Output:** the hex-encoded ciphertext
 
+Once you've got this working, make sure you take a moment to test that this
+encryption function really is its own inverse. Encrypt the ciphertext again
+using the same key and nonce, and notice that the original plaintext comes back
+out.
+
 ## Problem 9: CTR mode as a random number generator
 
 It turns out that a stream cipher and a (cryptographically secure) random
