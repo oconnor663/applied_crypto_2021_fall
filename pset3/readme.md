@@ -111,16 +111,26 @@ more, no less -- we don't often use it directly, and libraries like
 `cryptography` don't usually expose it. Instead, they usually expose higher
 level "modes", which can work with messages of any length. But in this problem
 we want to start with the block cipher, and to do that we'll need to go through
-one of these modes. Just trust me for now that this function does what we want:
+one of these modes. For now just copy this function and trust me that it does
+what we want:
 
 ```python
+from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 def AES_encrypt_block(key, block):
     assert len(key) == 16
     assert len(block) == 16
-    return Cipher(algorithms.AES(key), modes.ECB()).encryptor().update(block)
+    # If you'd like to understand these two lines, come back after Problem 4.
+    cipher = Cipher(algorithms.AES(key), modes.ECB(), default_backend())
+    return cipher.encryptor().update(block)
 ```
+
+> NOTE: An earlier version of this example code was incompatible with older
+> versions of the `cryptography` library (prior to v3.1). If you happen to have
+> an older version installed, and you see errors like `missing 1 required
+> positional argument: 'backend'`, that's my fault. Please copy the fixed
+> example code above.
 
 Your input is a 16-character ASCII string. Convert this string to bytes and
 encrypt it with the AES block cipher, using a key consisting of sixteen `A`
@@ -138,8 +148,16 @@ This is the inverse of Problem 1 above. We can use a similar function to decrypt
 def AES_decrypt_block(key, block):
     assert len(key) == 16
     assert len(block) == 16
-    return Cipher(algorithms.AES(key), modes.ECB()).decryptor().update(block)
+    # If you'd like to understand these two lines, come back after Problem 4.
+    cipher = Cipher(algorithms.AES(key), modes.ECB(), default_backend())
+    return cipher.decryptor().update(block)
 ```
+
+> NOTE: An earlier version of this example code was incompatible with older
+> versions of the `cryptography` library (prior to v3.1). If you happen to have
+> an older version installed, and you see errors like `missing 1 required
+> positional argument: 'backend'`, that's my fault. Please copy the fixed
+> example code above.
 
 Your input is a hex-encoded encrypted string, of the same form as your output
 in Problem 1. Hex-decode it and decrypt it with the AES block cipher using the
