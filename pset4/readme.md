@@ -4,6 +4,46 @@ This problem set goes with *Serious Cryptography* Chapter 6. I recommending
 reading through at least the definition of "collision resistance" on p. 109
 before you start.
 
+Example input:
+
+```json
+{
+  "problem1": "unicorn cat hippopotamus",
+  "problem2": null,
+  "problem3": [
+    "0e306561559aa787d00bc6f70bbdfe3404cf03659e704f8534c00ffb659c4c8740cc942feb2da115a3f4155cbb8607497386656d7d1f34a42059d78f5a8dd1ef",
+    "0e306561559aa787d00bc6f70bbdfe3404cf03659e744f8534c00ffb659c4c8740cc942feb2da115a3f415dcbb8607497386656d7d1f34a42059d78f5a8dd1ef"
+  ],
+  "problem4": null,
+  "problem5": 1466615157
+}
+```
+
+Example output:
+
+```json
+{
+  "problem1": {
+    "md5": "cb6b0fd8aa7fbc4e5b189b17e01bdc7c",
+    "sha1": "b5d871a54726a1be8fa594d011bd3610f283cb21",
+    "sha256": "dd501852933e8f856c33fed4385c2b4ad0b64c513d0af8d3d3e315764986d73c",
+    "sha3_256": "ca865b257e1ec4d9bab831ec6a1019def9d0d6092f4db95686db313f50d4325c"
+  },
+  "problem2": {
+    "md5": "49a61fed1b219aaf1d7a0633379dd2a4",
+    "sha1": "2e89691e494ad9d76265bae8d40eb4e089c1fef8",
+    "sha256": "3b6369797c748f684439e9bb72f1ed44a2de3712a4adfd2da85aec7bac83b4ec",
+    "sha3_256": "31b4b4645f2a9bdf0559fd75f0242e953cc2d4fa911f2208bee004b01eb69707"
+  },
+  "problem3": "cee9a457e790cf20d4bdaa6d69f01e41",
+  "problem4": "38762cf7f55934b34d179ae6a4c80cadccbb7f0a",
+  "problem5": {
+    "lucky_hash": "000000738eaf4fdf4b40ea481ca808ff1330fea0f1c3fa0ddbaaae81eeaef91c",
+    "tries": 2000000
+  }
+}
+```
+
 ## Problem 1: Common standards, old and new
 
 Unlike ciphers, where almost everything these days is based on just a couple of
