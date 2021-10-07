@@ -184,7 +184,7 @@ comment out your file reading code.**
 
 **Output:** the hex-encoded SHA-1 hash of `shattered-1.pdf` and also `shattered-2.pdf` (again, they collide, so it doesn't matter which one)
 
-As with Problem 4 above, there's no random input for this problem.
+As with Problem 3 above, there's no random input for this problem.
 
 ## Problem 4b: A collision in SHA-2
 
