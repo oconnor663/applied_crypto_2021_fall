@@ -53,13 +53,22 @@ key = b"A" * 16
 outputs["problem2"] = AES_decrypt_block(key, ciphertext).decode()
 
 
+# Problem 3
+'''
+ Implement ECB mode encryption by looping over 16-byte blocks of the input and encrypting each of them with the AES block cipher, 
+ using the same key as above (b"A" * 16). 
+ Your output should be the encrypted ciphertext, encoded as hex.
+'''
+plaintext = inputs["problem3"].encode()
+key = b"A" * 16
+blocks = [plaintext[i:i+16] for i in range(0, len(plaintext), 16)]
+enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
+outputs["problem3"] = enc_blocks
 
-
-
-# Problem 2
 # pad = bytes.fromhex(inputs["problem2"]["pad"])
 # ciphertext = bytes.fromhex(inputs["problem2"]["ciphertext"])
 # outputs["problem2"] = xor_bytes(pad, ciphertext).decode()
+
 #
 # # Problem 3
 # ciphertext1, ciphertext2 = inputs["problem3"]
