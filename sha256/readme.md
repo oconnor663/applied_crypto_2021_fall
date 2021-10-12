@@ -7,17 +7,17 @@
 >
 > This project is structured like a large problem set, and it's autograded on
 > Gradescope like a problem set. Also like a problem set, **the "no copying
-> code" policy applies here in full.** The problems below will refer to pages
-> in our book, to standards documents, and to pseudocode, but I've
-> intentionally avoided linking to any actual code, and I recommend that you
-> avoid looking at any code while you do the project. If you do decide to look
-> at code, I recommend that you do so only while you're debugging the code
-> you've already written, and you might also consider taking a five minute
-> break in between looking at anyone else's code and writing code yourself. As
-> always, getting debugging help from your classmates or at office hours is
-> highly encouraged, but you do need to be defensive about letting anyone copy
-> your code once it's working. Unfortunately, we don't have a crystal ball to
-> tell us who wrote what when we enforce this policy.
+> code" policy described in Problem Set 1 applies here in full.** The problems
+> below will refer to pages in our book, to standards documents, and to
+> pseudocode, but I've intentionally avoided linking to any actual code, and I
+> recommend that you avoid looking at any code while you do the project. If you
+> do decide to look at code, I recommend that you do so only while you're
+> debugging the code you've already written, and you might also consider taking
+> a five minute break in between looking at anyone else's code and writing code
+> yourself. As always, getting debugging help from your classmates or at office
+> hours is highly encouraged, but you do need to be defensive about letting
+> anyone copy your code once it's working. Unfortunately, we don't have a
+> crystal ball to tell us who wrote what when we enforce this policy.
 
 In this project we're going to implement SHA-256 ourselves, and then we'll use
 our implementation to demonstrate a "length extension attack" (see p. 125 of
@@ -324,7 +324,7 @@ name "sigma" (Greek lowercase σ and uppercase Σ) refers to the "S-boxes" or
 Similarly, given a word `x`, we define `little_sigma1(x)` to be the value:
 
 ```python
-rightrotate32(word, 17) ^ rightrotate32(word, 19) ^ (word >> 10)
+rightrotate32(x, 17) ^ rightrotate32(x, 19) ^ (x >> 10)
 ```
 
 Implement this function in Python too. Again, you can copy the line above if
@@ -350,17 +350,20 @@ W[i] := W[i-16] + little_sigma0(W[i-15]) + W[i-7] + little_sigma1(W[i-2])
 ```
 
 Note that in this case the formula is pseudocode, not Python. The `:=` symbol
-means "is defined to be". Importantly, the `+` symbol here doesn't mean
-Python's `+`, but rather the `add32()` function that we defined back in
-Problem&nbsp;1. This is the first time we've needed that helper function, but
-it won't be the last. Also depending on how you structure your Python code,
-there's a good chance you'll make use of the
+means "is defined to be", similar to `=` in Python. Importantly, the `+` symbol
+in SHA-256 pseudocode does *not* mean Python's `+`, but rather the `add32()`
+function that we defined back in Problem&nbsp;1. (Implementing pseudocode using
+regular Python addition rather than `add32` will be a *common mistake*
+throughout this project.) Depending on how you structure your Python code, you
+might also want to use the
 [`.append()`](https://docs.python.org/3/tutorial/datastructures.html) method on
 lists.
 
-Your input is an ASCII string of length 64. Convert it to bytes, and follow the
-procedure above to construct the complete message schedule, a list of 64 words.
-Your output should be that list.
+Define a function like `message_schedule(block)` which takes a 64-byte block
+and returns a 64-word list, according to the formula described above. Your
+input for this problem is an ASCII string of length 64. Convert it to bytes,
+and use your `message_schedule()` function to construct message schedule for
+that block. Your output should be the resulting list.
 
 **Input:** an ASCII string of length 64, which represents a block of input for the compression function
 
@@ -411,7 +414,7 @@ started, we're going to need four more small helper functions:
 Given a word `x`, we define `big_sigma0(x)` to be the value:
 
 ```python
-rightrotate32(word, 2) ^ rightrotate32(word, 13) ^ rightrotate32(word, 22)
+rightrotate32(x, 2) ^ rightrotate32(x, 13) ^ rightrotate32(x, 22)
 ```
 
 Implement this function in Python. You can copy the line above if you like.
@@ -425,7 +428,7 @@ Implement this function in Python. You can copy the line above if you like.
 Given a word `x`, we define `big_sigma1(x)` to be the value:
 
 ```python
-rightrotate32(word, 6) ^ rightrotate32(word, 11) ^ rightrotate32(word, 25)
+rightrotate32(x, 6) ^ rightrotate32(x, 11) ^ rightrotate32(x, 25)
 ```
 
 Implement this function in Python too. Again, you can copy the line above if
@@ -446,22 +449,23 @@ Given three words, `x`, `y`, and `z`, we define `choice(x, y, z)` to be the valu
 Implement this function in Python too. Again, you can copy the line above if
 you like.
 
-Note that the `~` symbol in Python means "bitwise-not", i.e. turn all the 0's
-to 1's and all the 1's to 0's. This isn't an operation we need very often, but
-it's nice that it's a built-in. The fact that Python integers are both signed
-and also variably-sized means that the behavior of `~` is subtler than it might
-seem at first glance. Because of the rules of ["two's complement" signed
-arithmetic](https://en.wikipedia.org/wiki/Two%27s_complement), it tends to give
-us negative numbers. Luckily, it all works out ok in the end, and we can ignore
-this curious detail. You can just trust me on that, or you can experiment with
-it and convince yourself as an exercise.
+Note that the `~` symbol in Python means "bitwise-not", i.e. turn all the
+0-bits into 1's and all the 1-bits into 0's. This isn't an operation we need
+very often, but it's nice that it's built-in. The fact that Python integers are
+both signed and also variably-sized means that the behavior of `~` is subtler
+than it might seem at first glance. Because of the rules of ["two's complement"
+signed arithmetic](https://en.wikipedia.org/wiki/Two%27s_complement), it tends
+to give us negative numbers. Luckily, all the little details work out in the
+end, and we can use `~` here without worrying about it. You can just trust me
+on that and copy the line of code above, or you can explore how the `~` works
+in Python as an exercise.
 
 **Inputs:** a list of three integers, `[x, y, z]`
 
 **Outputs:** the value `choice(x, y, z)`
 
 Before you move on from this function, take a moment to stare at it. Can you
-tell why it's named "choice"?
+tell why it's called "choice"?
 
 ### Problem 9: `majority()`
 
@@ -479,8 +483,8 @@ you like.
 
 **Outputs:** the value `majority(x, y, z)`
 
-Same follow-up question as above: Can you tell why this function is named
-"majority"? This one's a little tricker. Three bits put together have
+Same follow-up question as above: Can you tell why this function is called
+"majority"? This one's a little trickier. Three bits put together have
 2<sup>3</sup> = 8 possible values, and the easiest way to see this one is to
 just make a table and calculate what happens in each case.
 
@@ -500,9 +504,9 @@ compression function (i.e. inside the trapezoids in that diagram), but it's the
 same state that we're talking about.
 
 The other two inputs to the round function are the **round constant** and the
-**schedule word**, each of which is 1 word. As you might guess, the schedule
-word is ultimately going to come from the message schedule, which we
-implemented in Problem&nbsp;5, but for now we'll just take it as another
+**schedule word**, each of which is one word (an integer). As you might guess,
+the schedule word is ultimately going to come from the message schedule, which
+we implemented in Problem&nbsp;5, but for now we'll just take it as an
 argument.
 
 Define a function like `round(state, round_constant, schedule_word)`. This
@@ -584,10 +588,11 @@ us now, and the pieces we've built are about to start fitting together.
 
 ### Problem 11: the compression function
 
-The compression function is the trapezoid from the Merkle–Damgård diagram
-above. Finally, we've arrived at a piece big enough that we've actually heard
-of it before. This is where we're going to see the "round loop" that executes
-the round function 64 times, once for each of the 64 rounds of SHA-256.
+Finally, we've arrived at a piece big enough that we've actually heard of it
+before. The compression function is the trapezoid from the Merkle–Damgård
+diagram above. This is where we're going to write the "round loop" that
+executes the round function 64 times, once for each of the 64 rounds of
+SHA-256.
 
 We saw the `round_constant` argument above. We need to start by copying the
 array of values that we'll use for this argument. Paste the following into your
@@ -614,13 +619,13 @@ of the first 64 prime numbers. But the details of the formula don't matter to
 us. These are just ["nothing-up-my-sleeve
 numbers"](https://en.wikipedia.org/wiki/Nothing-up-my-sleeve_number).
 
-Now, define a function like `compress(input_state, input_block)`, where
-`input_state` is an 8-word list, and `input_block` is a 64-byte block of the
-hash function's input. This function combines the the message schedule from
-Problem&nbsp;5 with the round function from Problem&nbsp;10, like this:
+Now, define a function like `compress(input_state, block)`, where `input_state`
+is an 8-word list, and `block` is a 64-byte block of the hash function's input.
+This function combines the message schedule from Problem&nbsp;5 with the round
+function from Problem&nbsp;10, like this:
 
 ```
-W := message_schedule(input_block)
+W := message_schedule(block)
 
 state := input_state
 for i in 0, 1, ..., 63
@@ -661,11 +666,12 @@ the number 64 a very careful tradeoff between speed and security. Is 64 rounds
 enough mixing to guarantee collision resistance and all the other security
 properties? It seems to be enough today, but what about ten or twenty years
 from now? Will SHA-256 be able to withstand another generation of clever
-attacks and faster computers? Maybe one of you will have a hand in that
+attacks and faster computers? Maybe some of you will have a hand in that
 research...
 
 In any case, for now we have our secure compression function. With this
-working, we're on the home stretch. The full hash function is in sight.
+working, we've turned onto the home stretch. The full hash function is in
+sight.
 
 ## Padding
 
@@ -676,15 +682,15 @@ ciphers they need a padding scheme to handle inputs that aren't an exact
 multiple of their block size. A naive padding scheme like "just fill the
 remainder of the last block with zeros" would ruin the collision resistance of
 the hash function, because some different inputs would be the same after
-padding. So hash functions need a need a proper, unambiguous padding scheme.
+padding. So hash functions need a proper, unambiguous padding scheme.
 
 It would be nice if we could reuse our PCKS#7 code from Problem Set 3, but alas
-SHA-256 uses something different. On the bright side, because this is hashing
+SHA-256 does something different. On the bright side, because this is hashing
 and not encryption, at least we don't need to write any code for unpadding.
 
 The SHA-256 padding scheme is originally defined in terms of bits (not bytes),
 and it makes more sense in those terms, so let's start there. Remember that
-there are 8 bits in a byte, so a block length of 64 bytes is the same as 512
+there are 8 bits in a byte, so a block size of 64 bytes is the same as 512
 bits. Here's the padding scheme as it's originally defined:
 
 1. Append a single 1-bit to the end of the input.
@@ -695,9 +701,15 @@ bits. Here's the padding scheme as it's originally defined:
 4. Choose `zero_bits` (the number of 0-bits) to be the smallest value such that
    the total resulting length is an exact multiple of 512 bits.
 
-That's pretty straightforward. However, in practice our programming languages
-and our computer hardware don't like to work directly with individual bits, and
-we need to translate that to bytes. So here's the exact same scheme,
+A side note: You might notice that step 3 there isn't actually necessary for
+making the padding unambiguous. Steps 1 and 2 alone are sufficient for that.
+The goal of step 3 is to make it harder to find collisions, by including the
+input length in the mix.
+
+Defining the padding scheme in terms of bits like this is pretty
+straightforward, but in practice our programming languages and our computer
+hardware don't usually talk about individual bits directly. We need to
+translate that definition to bytes. So here's the exact same scheme,
 redescribed in terms of bytes, the way we'll actually implement it:
 
 1. Append a single 0x80 byte (decimal 128, binary 0b10000000) to the end of the
@@ -710,8 +722,8 @@ redescribed in terms of bytes, the way we'll actually implement it:
 4. Choose `zero_bytes` (the number of 0x00 bytes) to be the smallest value such
    that the total resulting length is an exact multiple of 64 bytes.
 
-Things got a little bit awkward in that translation. The first byte we append
-is less obvious, and the multiply-by-8 step is easy to forget. But we'll
+Things got a little bit less elegant in that translation. The first byte we
+append is less obvious, and the multiply-by-8 step is easy to forget. But we'll
 manage.
 
 How do we determine that smallest value of `zero_bytes` exactly? If you like
@@ -727,9 +739,9 @@ zero_bytes = filler_bytes - 1              # 0x00 padding we need to add
 
 Take a minute or two to review that logic and convince yourself it's correct.
 Then write a function like `padding(input_length)`, which takes the original
-**byte length** (not bit length) of an input and returns the appropriate
+**byte length** (not bit length!) of an input and returns the appropriate
 padding bytestring for that input. Your input for this problem is a list of
-input byte lengths (not bit lengths). For each input length, call your
+input byte lengths (not bit lengths!). For each input length, call your
 `padding()` function with that length and hex-encode the resulting padding
 bytes. Your output for this problem should be the list of hex-encoded padding
 strings.
@@ -738,17 +750,17 @@ strings.
 
 **Output:** a list of SHA-256 padding bytestrings, each hex-encoded
 
-This padding function was the last big moving part. All we have to do now is
-put the padding function and the compression function together.
+This padding function was our last big moving part. All we have to do now is
+put the padding function and compression function together.
 
 ## The Hash Function
 
 ### Problem 13: the hash function
 
 Now we're ready to assemble the complete hash function. The genuine article.
-Once you finish this problem, you can test your own code against Python's
-`hashlib`, or any other SHA-256 implementation in the world, and your output
-will be exactly the same. Knock on wood.
+Once you finish this problem, you can test your code against Python's `hashlib`
+or against any other SHA-256 implementation in the world, and your output will
+be exactly the same. Knock on wood.
 
 The hash function takes a bytestring of any length as input, which we often
 call the "message". (This is why the thing we built in Problem&nbsp;5 is called
@@ -794,13 +806,13 @@ into 32 bytes by encoding each of the 8 state words as a 4-byte **big endian**
 integer and concatenating them. Those 32 bytes are the return value of
 `sha256()`.
 
-Your input for this problem is an ASCII string. Convert it to bytes and hash it
-with your `sha256()` function. Your output should be the resulting SHA-256
-hash, encoded as hex.
+Your input for this problem is a list of ASCII strings. Convert each string to
+bytes and hash it with your `sha256()` function. Your output should be a list
+of the resulting SHA-256 hashes, each encoded as hex.
 
-**Input:** an ASCII string
+**Input:** a list of ASCII strings
 
-**Output:** the SHA-256 hash of those ASCII bytes, encoded as hex
+**Output:** a list of the hex-encoded SHA-256 hashes of those strings
 
 <a href="https://youtu.be/LUDEjulbqzk?t=123">
   <img alt="I have made fire!" src="./i_have_made_fire.jpg" width="400px">
@@ -819,7 +831,7 @@ tricks to pull off an important attack, and the best time to learn this attack
 is while the tricks are still fresh in your mind. Strike while the iron is hot,
 as they say.
 
-SHA-256 has a flaw. Although its collision resistance and the other security
+SHA-256 has a flaw. Although its collision resistance and other security
 properties remain unbroken so far, it does *not* behave like a true ["random
 oracle"](https://en.wikipedia.org/wiki/Random_oracle). Some SHA-256 outputs are
 _related_ to each other, in a way that you can detect or exploit even when you
@@ -832,31 +844,35 @@ to it; we just returned it. That means that if you look at a SHA-256 hash,
 you're looking at the same state that _would have been used_ to call the
 compression function again _if there had been more input._
 
-This is very interesting. Suppose you're an attacker, and you're looking at a
-hash that I've published. You don't know what input I used, maybe because I put
-a secret key somewhere in there that you can't guess. But you don't need to
-know my input. What you're going to do is construct a _new_ hash, which matches
-a _different_ input, one which starts with the same bytes as mine but then has
-some extra bytes of your choosing added to the end.
+This was a design mistake. (The designers actually knew about this issue at the
+time but didn't consider it important.) Here's the problem: Suppose you're an
+attacker, and you're looking at a hash that I've published. Let's say you don't
+know what input I used, maybe because I included a secret key or something like
+that. Because of this mistake, even though you don't know my input, you can
+construct a _new_ hash, which matches a _different_ input, one which starts
+with the _same bytes as mine_ but then has some extra bytes of your choosing
+added to the end. If SHA-256 hashes were truly independent of each other, this
+wouldn't be possible, but they aren't, and it is possible.
 
 There's one thing standing between you and this attack: the padding. I didn't
 do anything special to the last chaining value, but I did pad my input. Those
 padding bytes went into the state that you're looking at, and there's no way
-for you to unmix them. But you can live with that. Your length extension attack
-will center around this one clever trick:
+for you to unmix them. But you can live with that, by making a clever
+compromise:
 
-*Pretend that my padding bytes were part of your chosen suffix.*
+*Pretend that my padding bytes are part of your chosen suffix.*
 
-You won't be able to extend my input with a totally arbitrary suffix, but you
-will be able to add any suffix you like as long as it starts with my padding
-bytes. That's still a pretty good attack, and that's what we're going to do in
-this final section of the project.
+That is to say, you can't extend my input with a totally arbitrary suffix, but
+you can choose any suffix that starts with my padding bytes. That's an
+important limitation, but it still allows for quite a lot of mischief.
 
-If you read through this project before we've cover Chapter 7 of *Serious
-Cryptography*, it might not yet be clear why this attack is important. The
-short answer is, this attack is why we need an algorithm called HMAC for keyed
-hashing, and programmers who don't know about HMAC often misuse hash functions
-in ways that are vulnerable to this attack.
+If you're reading through this project before we've covered Chapter 7 of
+*Serious Cryptography*, it might not yet be clear why this attack is important.
+The short answer is, this attack is why we need an algorithm called
+[HMAC](https://en.wikipedia.org/wiki/HMAC) for keyed hashing, and programmers
+who don't know about HMAC often misuse hash functions in ways that are
+vulnerable to this attack. We'll get to HMAC in class shortly, if we haven't
+already. For now, let's see the length extension attack in action.
 
 ### Problem 14: modeling the extended input
 
@@ -878,13 +894,13 @@ in bits. My original 55 bytes and these 9 bytes of padding are 64 bytes put
 together, exactly one block. Clear so far?
 
 Now put your attacker hat back on. You're going to pretend that those padding
-bytes were actually the start of your chosen suffix. Then you're going to any
+bytes are actually the start of your chosen suffix. Then you're going to any
 number of additional suffix bytes of your choosing. The resulting "synthetic"
 input, which you're ultimately going to compute the hash of, will be equivalent
-to my original, plus my padding, plus your chosen suffix. Let's say my original
-input was fifty-five 0xaa bytes, and your chosen suffix is three 0xff bytes. In
-that case then synthetic message, represented here as a hex-encoded string that
-I've split over a few lines, would be:
+to my original, plus my padding, plus the rest of your chosen suffix. Let's say
+my original input was fifty-five `0xaa` bytes, and you chose three `0xff` bytes
+for your suffix. In that case the synthetic message, represented here as a
+hex-encoded string that I've split over a few lines, would be:
 
 ```
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa    <-- the first 32-byte half of the first block
@@ -893,10 +909,10 @@ ffffff                                                              <-- the seco
 ```
 
 To be clear, we won't construct this complete synthetic string ourselves when
-we perform the length extension attack. In fact, we can't. All those 0xaa bytes
-in my original input are hidden from the attacker. But this synthetic string is
-what our final length-extended hash will *represent*, and we want to model it
-in this problem.
+we perform the length extension attack. In fact, we can't. All those `0xaa`
+bytes in my original input are hidden from the attacker. But this synthetic
+string is what our final length-extended hash will *represent*, and we want to
+model it in this problem.
 
 Your input for this problem is an object with two fields, `"original_input"`
 containing an ASCII string that we want to extend, and `"chosen_suffix"`
@@ -904,6 +920,10 @@ containing the ASCII string that we want to extend it with. Convert these
 strings to bytes, and construct the synthetic message with padding in the
 middle that a length extension attack would compute the hash of. Your output
 should be this synthetic string, encoded as hex.
+
+**Input:** an object with two fields, `"original_input"` and `"chosen_suffix"`
+
+**Output:** the synthetic message, encoded as hex
 
 ### Problem 15: recovering the state
 
@@ -915,11 +935,11 @@ it from 8 words to 32 bytes. We need to undo that and recover the words.
 Your input for this problem is a 32-byte hash, encoded as hex. Hex-decode it
 into bytes. Then convert it back into a list of 8 words, by breaking it into
 groups of 4 bytes and parsing each 4-byte group as a **big-endian** integer.
-Your output should be the list of these words.
+Your output should be that list.
 
 **Input:** a 32-byte hash, encoded as hex
 
-**Output:** the list of 8 words recovered from that hash
+**Output:** the list of 8 state words recovered from the hash
 
 ### Problem 16: the length extension attack
 
@@ -931,9 +951,9 @@ you did in Problem&nbsp;15 above.
 
 Now, to begin the attack, _re-pad_ the chosen suffix, like you padded the
 regular message in Problem&nbsp;13. However, instead of calling your
-`padding()` function with the length of the suffix, call it with the *total
-length of the synthetic message*. That is, the original input length, plus the
-length of the original input's padding, plus the length of the suffix.
+`padding()` function with the length of the suffix itself, call it with the
+*total length of the synthetic message*. That is, the original input length,
+plus the length of the original input's padding, plus the length of the suffix.
 
 Next, hash the padded result by looping over its blocks and calling
 `compress()` on each of them, again as you did in Problem&nbsp;13. However,
@@ -945,14 +965,14 @@ Convert your list of 8 state words back into 32 bytes, using the same method as
 in Problem&nbsp;13. Your output for this problem should be the resulting hash,
 encoded as hex.
 
+The input for the `"original_hash"` given in `example_input.json` was `elephant
+jaguar vulture octopus butterfly`. You don't need to know that to extend it,
+but if you like, you can check your result by hand and confirm that it is
+indeed a valid extension of that original string.
+
 **Input:** an object with three fields, `"original_hash"`, `"original_len"`, and `"chosen_suffix"`
 
 **Output:** the length-extended hash, encoded as hex
-
-The `"original_hash"` in the example input came from the following string:
-`elephant jaguar vulture octopus butterfly`. You don't need to know that to
-extend it, but if you like, you can check by hand that the example output is
-valid.
 
 <a href="https://youtu.be/Vy7RaQUmOzE?t=201">
   <img alt="he is the one" src="./matrix.jpg" width="400px">
@@ -960,4 +980,63 @@ valid.
 
 ## Conclusion
 
-TODO
+The project is finished, and there are no more questions. If you've made it
+this far, then you know more about the insides of a hash function than many
+cryptographers do. That's something to be proud of, and I hope you'll find that
+it was worth the trouble.
+
+If you're tired of hashing and ready for a beak, no need to read any further.
+But if you found all this very interesting and you're eager to learn more,
+there are many different avenues to explore. Here are a few:
+
+- In Problem&nbsp;13, we implemented "all-at-once" hashing. That is, the entire
+  input string was provided as an argument. In practice however, most hash
+  functions are designed to work incrementally, piece-by-piece. When the input
+  is very large, they read smaller chunks of it in a loop, so that the
+  application doesn't need to allocate lots of memory for a large string.
+  Python's `hashlib` module provides the
+  [`.update()`](https://docs.python.org/3/library/hashlib.html#hashlib.hash.update)
+  method for this. You can try refactoring your own SHA-256 code to support
+  some sort of "update" function, which can be called multiple times. You'll
+  need to think about how to "buffer" input when what you're given isn't an
+  exact multiple of 64 bytes.
+
+- More recent designs like SHA-3, BLAKE2, and BLAKE3 prevent length extension
+  attacks by making sure that their chaining values and their published hashes
+  are different from each other in some way. This prevents an attacker from
+  looking at a hash and recovering the chaining value that would have been used
+  to compress more input, like we did in Problems 15 and 16. Think about ways
+  you might modify SHA-256 to prevent this. What if the compression function
+  was implemented in hardware, and you weren't allowed to change it?
+
+- The Merkle–Damgård contruction is very common, but there are other ways to
+  organize things. SHA-3 uses a "sponge construction" (p. 115), and BLAKE3 uses
+  a "Merkle tree" (named after the same Ralph Merkle). These different
+  structures can have a variety of different benefits. You might compare and
+  contrast your SHA-256 code with [this Python implementation of
+  SHA-3](https://github.com/coruus/py-keccak/blob/master/fips202/keccak.py),
+  especially the part where they use `permute()` instead of `compress()`.
+
+- Some use cases, particularly hash tables (dictionaries in Python), can
+  tolerate collisions. For these cases, it's common to use a faster hash
+  function with a smaller state and a shorter output. See for example
+  [SipHash](https://en.wikipedia.org/wiki/SipHash), also designed by J.P.
+  Aumasson, the author of our book. SipHash is used by default in the Rust
+  [`HashMap`](https://doc.rust-lang.org/std/collections/struct.HashMap.html),
+  for example. But note that even though hash tables/maps don't need collision
+  resistance per se, they often do need some related security properties,
+  because they can be [vulnerable to DOS
+  attacks](https://www.anchor.com.au/blog/2012/12/how-to-explain-hash-dos-to-your-parents-by-using-cats/)
+  if an attacker is able to produce too many collisions.
+
+- Some applications need a hash function with more exotic properties. For
+  example, you might be familiar with the `rsync` command for copying files
+  over a network. Rsync uses a ["rolling
+  hash"](https://en.wikipedia.org/wiki/Rolling_hash) to efficiently detect
+  blocks that are the same between two different versions of a file. Rolling
+  hashes look quite different from cryptographic hash functions, and they
+  usually don't make strong security guarantees. If you have access to a remote
+  server, you can play with making a tiny change to a large file, and see how
+  long it takes Rsync to pick up the change.
+
+Happy hashing.

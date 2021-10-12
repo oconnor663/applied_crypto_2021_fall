@@ -10,8 +10,7 @@ import sys
 # import that specific function from `random`.
 from random import shuffle
 
-# sha256.py in this directory
-import sha256
+import hashlib
 
 animals = [
     "aardvark",
@@ -102,7 +101,7 @@ inputs["problem9"] = [randbits(32), randbits(32), randbits(32)]
 state = [randbits(32) for _ in range(8)]
 inputs["problem10"] = {
     "state": [randbits(32) for _ in range(8)],
-    "round_constant": secrets.choice(sha256.ROUND_CONSTANTS),
+    "round_constant": 0x428A2F98,
     "schedule_word": randbits(32),
 }
 
@@ -156,7 +155,7 @@ inputs["problem15"] = secrets.token_bytes(32).hex()
 # Problem 16
 hidden_input = random_animals(10)
 inputs["problem16"] = {
-    "original_hash": sha256.sha256(hidden_input.encode()).hex(),
+    "original_hash": hashlib.sha256(hidden_input.encode()).hexdigest(),
     "original_len": len(hidden_input),
     "chosen_suffix": random_animals(5),
 }
