@@ -85,7 +85,10 @@ and re-encode the result as hex. Your output should be the list of these padded,
 #bytes.fromhex(s).decode()
 padded = []
 for s in inputs["problem5"]:
-    padding =  bytes([16 % len(bytes.fromhex(s).decode())])
+    l = 16 - ((len(bytes.fromhex(s).decode())) % 16)
+    if l == 0:
+        l = 16
+    padding = bytes([l]*l)
     padded.append((bytes.fromhex(s) + padding).hex())
 outputs["problem5"] = padded
 
