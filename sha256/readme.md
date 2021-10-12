@@ -373,7 +373,7 @@ As you work on this part of the algorithm, it might be helpful or interesting
 to compare notes with how different sources describe it. Here's how *Serious
 Cryptography* describes it, on p. 119:
 
-<kbd><img alt="message schedule code from the book" src="./book_message_schedule.png" width="700px"></kbd>
+<kbd><img alt="message schedule code from the book" src="images/book_message_schedule.png" width="700px"></kbd>
 
 And here's how [the pseudocode on
 Wikipedia](https://en.wikipedia.org/wiki/SHA-2#Pseudocode) describes it:
@@ -394,7 +394,7 @@ And finally, here's how it's described in the official standard that defines
 SHA-256, p. 22 of [FIPS
 180-4](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf):
 
-<kbd><img alt="message schedule formula from the standard" src="./standard_message_schedule.png" width="640px"></kbd>
+<kbd><img alt="message schedule formula from the standard" src="images/standard_message_schedule.png" width="640px"></kbd>
 
 These are all different ways of describing the same message schedule.
 
@@ -495,7 +495,7 @@ round function. The round function takes three arguments. The most important of
 these is the **state**, a list of 8 words. Recall the diagram of the
 Merkle–Damgård construction from p. 112 of *Serious Cryptography*:
 
-<kbd><img alt="Merkle–Damgård diagram" src="./merkle-damgard.png"></kbd>
+<kbd><img alt="Merkle–Damgård diagram" src="images/merkle-damgard.png"></kbd>
 
 The values H<sub>0</sub>, H<sub>1</sub>, and H<sub>2</sub> represent this
 8-word state as it's transformed by each call to the compression function. At
@@ -578,7 +578,7 @@ P. 23 of the [FIPS
 180-4](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf) standard
 describes the round function using uses the same 8 variables:
 
-<kbd><img alt="the round function formulas from the standard" src="./standard_round_function.png" width="480"></kbd>
+<kbd><img alt="the round function formulas from the standard" src="images/standard_round_function.png" width="480"></kbd>
 
 Once you've got the round function working, you've reached the second major
 milestone of the project. Very well done! Most of the little details are behind
@@ -769,7 +769,7 @@ equivalent of the "plaintext". As we did with block ciphers, we're going to pad
 the message and split it up into blocks. Let's look at that Merkle–Damgård
 diagram again:
 
-<kbd><img alt="Merkle–Damgård diagram" src="./merkle-damgard.png"></kbd>
+<kbd><img alt="Merkle–Damgård diagram" src="images/merkle-damgard.png"></kbd>
 
 M<sub>1</sub>, M<sub>2</sub>, and so on represent 64-byte blocks of the padded
 message. There are as many M blocks as needed, depending on the padded message
@@ -815,7 +815,7 @@ of the resulting SHA-256 hashes, each encoded as hex.
 **Output:** a list of the hex-encoded SHA-256 hashes of those strings
 
 <a href="https://youtu.be/LUDEjulbqzk?t=123">
-  <img alt="I have made fire!" src="./i_have_made_fire.jpg" width="400px">
+  <img alt="I have made fire!" src="images/i_have_made_fire.jpg" width="400px">
 </a>
 
 ## The Length Extension Attack
@@ -975,7 +975,7 @@ indeed a valid extension of that original string.
 **Output:** the length-extended hash, encoded as hex
 
 <a href="https://youtu.be/Vy7RaQUmOzE?t=201">
-  <img alt="he is the one" src="./matrix.jpg" width="400px">
+  <img alt="he is the one" src="images/matrix.jpg" width="400px">
 </a>
 
 ## Conclusion
