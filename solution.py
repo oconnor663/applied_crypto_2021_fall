@@ -41,7 +41,6 @@ key = b"A" * 16
 outputs["problem1"] = AES_encrypt_block(key, plaintext).hex()
 
 
-
 # Problem 2
 '''
 Your input is a hex-encoded encrypted string, of the same form as your output in Problem 1. 
@@ -65,9 +64,18 @@ blocks = [plaintext[i:i+16] for i in range(0, len(plaintext), 16)]
 enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
 outputs["problem3"] = enc_blocks
 
-# pad = bytes.fromhex(inputs["problem2"]["pad"])
-# ciphertext = bytes.fromhex(inputs["problem2"]["ciphertext"])
-# outputs["problem2"] = xor_bytes(pad, ciphertext).decode()
+# Problem 4
+'''
+Your input is a hex-encoded encrypted string, of the same form as your output in Problem 3. 
+Implement ECB mode decryption, this time by looping over 16-byte blocks of the ciphertext and decrypting each one, again using the same key. 
+Your output should be the decrypted plaintext, an ASCII string.
+'''
+plaintext = bytes.fromhex(inputs["problem4"])
+key = b"A" * 16
+blocks = [plaintext[i:i+16] for i in range(0, len(plaintext), 16)]
+enc_blocks = ''.join([AES_decrypt_block(key,block).decode() for block in blocks])
+outputs["problem4"] = enc_blocks
+
 
 #
 # # Problem 3
