@@ -77,7 +77,23 @@ enc_blocks = ''.join([AES_decrypt_block(key,block).decode() for block in blocks]
 outputs["problem4"] = enc_blocks
 
 
-#
+# Problem 5
+'''
+Hex-decode each input string into bytes, pad its length to an even multiple of 16 using PKCS#7 padding, 
+and re-encode the result as hex. Your output should be the list of these padded, hex-encoded strings.
+'''
+#bytes.fromhex(s).decode()
+padded = []
+for s in inputs["problem5"]:
+    padding =  bytes([16 % len(bytes.fromhex(s).decode())])
+    padded.append((bytes.fromhex(s) + padding).hex())
+outputs["problem5"] = padded
+
+
+
+
+
+
 # # Problem 3
 # ciphertext1, ciphertext2 = inputs["problem3"]
 # plaintext_xor = xor_bytes(bytes.fromhex(ciphertext1), bytes.fromhex(ciphertext2))
