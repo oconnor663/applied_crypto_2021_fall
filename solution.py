@@ -19,6 +19,13 @@ def xor_bytes(a, b):
     # the one-liner version, using a "generator expression" and the "zip iterator"
     return bytes(x ^ y for x, y in zip(a, b))
 
+def AES_decrypt_block(key, block):
+    assert len(key) == 16
+    assert len(block) == 16
+    # If you'd like to understand these two lines, come back after Problem 4.
+    cipher = Cipher(algorithms.AES(key), modes.ECB(), default_backend())
+    return cipher.decryptor().update(block)
+
 
 inputs = json.load(sys.stdin)
 outputs = {}
@@ -32,6 +39,22 @@ Your output should be the encrypted block, encoded as hex.
 plaintext = inputs["problem1"].encode()
 key = b"A" * 16
 outputs["problem1"] = AES_encrypt_block(key, plaintext).hex()
+
+
+
+# Problem 2
+'''
+Your input is a hex-encoded encrypted string, of the same form as your output in Problem 1. 
+Hex-decode it and decrypt it with the AES block cipher using the same key. 
+Your output should be the decrypted plaintext, an ASCII string.
+'''
+ciphertext = bytes.fromhex(inputs["problem2"])
+key = b"A" * 16
+outputs["problem2"] = AES_decrypt_block(key, ciphertext).decode()
+
+
+
+
 
 # Problem 2
 # pad = bytes.fromhex(inputs["problem2"]["pad"])
