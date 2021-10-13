@@ -93,6 +93,18 @@ for s in inputs["problem5"]:
 outputs["problem5"] = padded
 
 
+# Problem 6
+'''
+Decode each of the hex strings into bytes, undo the PKCS#7 padding, and convert the result into an ASCII string. 
+Your input should be the list of these strings.
+'''
+unpadded = []
+for enc_padded in inputs["problem6"]:
+    padl = bytes.fromhex(enc_padded)[-1]
+    unpadded_dec = bytes.fromhex(enc_padded)[:len(bytes.fromhex(enc_padded)) - padl].decode()
+    unpadded.append(unpadded_dec)
+outputs["problem6"] = unpadded
+
 
 
 
