@@ -160,6 +160,13 @@ outputs["problem8"] = cipher[:len(cipher) - garbage_dig].hex()
 
 
 # Problem 9
+"""
+Your input for this problem is a random 16-byte key, encoded as hex. 
+Use this key as a "seed", set your nonce to all zero/null bytes (b"\x00" * 12), and treat your AES-CTR output as a stream of random bytes. 
+Convert the first 40 bytes of AES-CTR stream output into five random 8-byte/64-bit little-endian unsigned integers, 
+using int.from_bytes(..., "little"). 
+Your output should be the list of these five random numbers.
+"""
 output = "".encode()
 res = []
 key = bytes.fromhex(inputs["problem9"])                     # hex
