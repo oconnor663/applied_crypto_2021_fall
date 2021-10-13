@@ -134,7 +134,7 @@ repeats = set([c for c in repeat_candidates if repeat_candidates.count(c) > 1])
 
 outputs["problem7"] = {
     "ciphertext": ciphertext,
-    "repeats": list(repeats)
+    "repeats": list(repeats)[::-1]
 }
 
 # Problem 8
