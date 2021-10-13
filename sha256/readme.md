@@ -796,7 +796,7 @@ IV = [
 
 Write a function like `sha256(message)`. ([This is
 it!](https://youtu.be/6v5VahaEL7s?t=438)) Inside it, use your `padding()`
-function to generate padding bytes for message, and concatenate the message
+function to generate padding bytes for the message, and concatenate the message
 with its padding. Create a `state` variable, whose starting value is `IV`. Then
 split the padded message up into 64-byte blocks and loop over the blocks,
 calling your `compress()` function on each one. For each call to `compress()`,
