@@ -392,22 +392,24 @@ very big difference.
 
 Your input for this problem is a random 16-byte key, encoded as hex. Use this
 key as a "seed", set your nonce to all zero/null bytes (`b"\x00" * 12`), and
-treat your AES-CTR output as a stream of random bytes. In this use case, we
-don't have any "input", so you can either skip the xor step entirely, or just
-pretend that the input is all zero/null bytes. (Remember that xor with zero has
-no effect.) Convert the first 40 bytes of AES-CTR stream output into five
-random 8-byte/64-bit **little-endian** unsigned integers, using
-`int.from_bytes(..., "little")`. Your output should be the list of these five
-random numbers.
+treat your AES-CTR output as a continuous stream of pseudorandom bytes. In this
+use case, we don't have any "input", so you can either skip the xor step
+entirely, or just pretend that the input is all zero/null bytes. (Remember that
+xor with zero has no effect.) Compute the first 40 bytes of this AES-CTR output
+stream and then use them to make five 8-byte/64-bit **little-endian** unsigned
+integers, using `int.from_bytes(..., "little")`. The first integer comes from
+the first 8 bytes of the stream, the second integer comes from the next 8
+bytes, and so on. Your output should be the list of these five pseudorandom
+numbers.
 
 Apologies for jumping back and forth between big-endian and little-endian
 encoding in this problem set. The modern rule of thumb is to prefer the
-little-endian encoding, except where compatibility requirements require us to
-use big-endian.
+little-endian encoding, except where compatibility requirements force us to use
+big-endian.
 
 **Input:** a random 16-byte key, encoded as hex
 
-**Output:** a list of five random 64-bit integers
+**Output:** a list of five pseudorandom 64-bit integers
 
 ## Problem 9¾: CBC mode (p. 67)
 
