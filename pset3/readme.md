@@ -305,7 +305,7 @@ Let's reproduce this effect ourselves. Instead of messing around with pixels,
 we can accomplish the same thing with some lyrics from [a song that some of you
 might know](https://youtu.be/-ebTwbutN9I?t=46).
 
-Your input for this problem as an object with two fields. The `"lyrics"` field
+Your input for this problem is an object with two fields. The `"lyrics"` field
 is an ASCII string containing a few lines from that song. Unlike most of our
 inputs, this string is always the same. The `"key"` field is a 16-byte key
 encoded as hex. Convert the lyrics into bytes and pad them with PKCS#7 to a
