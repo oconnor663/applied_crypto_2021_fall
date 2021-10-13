@@ -122,7 +122,6 @@ lyrics = inputs["problem7"]["lyrics"]
 key = bytes.fromhex(inputs["problem7"]["key"])
 padded_lyrics_b = pad(bytes(lyrics.encode()).hex())
 #outputs["problem7"] = padded_lyrics_b
-print(padded_lyrics_b)
 blocks = [padded_lyrics_b[i:i+16] for i in range(0, len(padded_lyrics_b), 16)]
 enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
 repeat_candidates = [''.join(AES_encrypt_block(key,block).hex()) for block in blocks]
