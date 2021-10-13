@@ -125,9 +125,11 @@ padded_lyrics_b = pad(bytes(lyrics.encode()).hex())
 blocks = [padded_lyrics_b[i:i+16] for i in range(0, len(padded_lyrics_b), 16)]
 enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
 repeat_candidates = [''.join(AES_encrypt_block(key,block).hex()) for block in blocks]
+ciphertext = ''.join(repeat_candidates)
 repeats = set([c for c in repeat_candidates if repeat_candidates.count(c) > 1])
 
 outputs["problem7"] = {
+    "ciphertext": ciphertext,
     "repeats": list(repeats)
 }
 
