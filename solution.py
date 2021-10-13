@@ -100,6 +100,19 @@ outputs["problem5"] = padded
 
 # Problem 6
 '''
+Hex-decode each input string into bytes, pad its length to an even multiple of 16 using PKCS#7 padding, and re-encode the result as hex. 
+Your output should be the list of these padded, hex-encoded strings.
+'''
+unpadded = []
+for enc_padded in inputs["problem6"]:
+    padl = bytes.fromhex(enc_padded)[-1]
+    unpadded_dec = bytes.fromhex(enc_padded)[:len(bytes.fromhex(enc_padded)) - padl].decode()
+    unpadded.append(unpadded_dec)
+outputs["problem6"] = unpadded
+
+
+# Problem 7
+"""
 Convert the lyrics into bytes and pad them with PKCS#7 to a multiple of 16 bytes. 
 Then encrypt those padded bytes with AES in ECB mode using the provided key. Encode the resulting ciphertext as hex, and take a look at it. 
 It contains some repeated blocks! Just like the penguin! 
@@ -109,19 +122,10 @@ The "ciphertext" field should contain the ciphertext you created above, encoded 
 "repeats" field should be a list, containing each of the 16-byte blocks encoded as hex that repeated more than once in the ciphertext. 
 Because the lyrics string is fixed, there will always be exactly two such blocks, and always in the same positions. 
 You don't need to write code to search for the repeated blocks unless you feel like it.
-'''
-unpadded = []
-for enc_padded in inputs["problem6"]:
-    padl = bytes.fromhex(enc_padded)[-1]
-    unpadded_dec = bytes.fromhex(enc_padded)[:len(bytes.fromhex(enc_padded)) - padl].decode()
-    unpadded.append(unpadded_dec)
-outputs["problem6"] = unpadded
-
-# Problem 7
+"""
 lyrics = inputs["problem7"]["lyrics"]
 key = bytes.fromhex(inputs["problem7"]["key"])
 padded_lyrics_b = pad(bytes(lyrics.encode()).hex())
-#outputs["problem7"] = padded_lyrics_b
 blocks = [padded_lyrics_b[i:i+16] for i in range(0, len(padded_lyrics_b), 16)]
 enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
 repeat_candidates = [''.join(AES_encrypt_block(key,block).hex()) for block in blocks]
@@ -133,11 +137,30 @@ outputs["problem7"] = {
     "repeats": list(repeats)
 }
 
-# # Problem 3
-# ciphertext1, ciphertext2 = inputs["problem3"]
-# plaintext_xor = xor_bytes(bytes.fromhex(ciphertext1), bytes.fromhex(ciphertext2))
-# plaintext = xor_bytes(plaintext_xor, b"$" * len(plaintext_xor))
-# outputs["problem3"] = plaintext.decode()
+# Problem 8
+'''
+Convert the plaintext to bytes and encrypt it with your implementation of AES-CTR, using the provided key and nonce. 
+Bear in mind that the plaintext string might be of any length, so you need to handle lengths that aren't a multiple of 16. 
+Your output should be the resulting ciphertext, encoded as hex.
+'''
+from math import ceil
+def ctr(key, nonce, counter):
+    return AES_encrypt_block(key, nonce + counter.to_bytes(4, "big"))
+
+cipher = "".encode()
+key = bytes.fromhex(inputs["problem8"]["key"])                  # hex
+nonce = bytes.fromhex(inputs["problem8"]["nonce"])              # hex
+plaintext = inputs["problem8"]["plaintext"].encode()            # ascii
+garbage_dig = 16 - len(plaintext) %16
+plaintext = plaintext + b'?' * garbage_dig
+for i in range(ceil(len(plaintext)/16)):
+    cipher += xor_bytes(ctr(key,nonce,i), plaintext[16*i: 16*(i+1)])
+
+outputs["problem8"] = cipher[:len(cipher) - garbage_dig].hex()
+
+
+
+
 #
 # # Problem 4
 # key = b"A" * 32
