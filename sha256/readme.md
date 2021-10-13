@@ -457,7 +457,7 @@ than it might seem at first glance. Because of the rules of ["two's complement"
 signed arithmetic](https://en.wikipedia.org/wiki/Two%27s_complement), it tends
 to give us negative numbers. Luckily, all the little details work out in the
 end, and we can use `~` here without worrying about it. You can just trust me
-on that and copy the line of code above, or you can explore how the `~` works
+on that and copy the line of code above, or you can explore how `~` works
 in Python as an exercise.
 
 **Inputs:** a list of three integers, `[x, y, z]`
