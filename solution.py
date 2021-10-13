@@ -8,7 +8,6 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 def AES_encrypt_block(key, block):
-    print(f'key: {key}\nblock: {block}')
     assert len(key) == 16
     assert len(block) == 16
     # If you'd like to understand these two lines, come back after Problem 4.
