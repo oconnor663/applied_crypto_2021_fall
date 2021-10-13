@@ -495,7 +495,15 @@ round function. The round function takes three arguments. The most important of
 these is the **state**, a list of 8 words. Recall the diagram of the
 Merkle–Damgård construction from p. 112 of *Serious Cryptography*:
 
-<kbd><img alt="Merkle–Damgård diagram" src="images/merkle-damgard.png"></kbd>
+```
+    M1   ┌────┐                  M2   ┌────┐
+    │    │    └────┐             │    │    └────┐
+    │    │         └───┐         │    │         └───┐
+    └───▶│             │         └───▶│             │
+         │  Compress   │              │  Compress   │
+ H0 ────▶│             │────▶ H1 ────▶│             │────▶ H2 ────▶ ...
+         └─────────────┘              └─────────────┘
+```
 
 The values H<sub>0</sub>, H<sub>1</sub>, and H<sub>2</sub> represent this
 8-word state as it's transformed by each call to the compression function. At
@@ -769,7 +777,15 @@ equivalent of the "plaintext". As we did with block ciphers, we're going to pad
 the message and split it up into blocks. Let's look at that Merkle–Damgård
 diagram again:
 
-<kbd><img alt="Merkle–Damgård diagram" src="images/merkle-damgard.png"></kbd>
+```
+    M1   ┌────┐                  M2   ┌────┐
+    │    │    └────┐             │    │    └────┐
+    │    │         └───┐         │    │         └───┐
+    └───▶│             │         └───▶│             │
+         │  Compress   │              │  Compress   │
+ H0 ────▶│             │────▶ H1 ────▶│             │────▶ H2 ────▶ ...
+         └─────────────┘              └─────────────┘
+```
 
 M<sub>1</sub>, M<sub>2</sub>, and so on represent 64-byte blocks of the padded
 message. There are as many M blocks as needed, depending on the padded message
