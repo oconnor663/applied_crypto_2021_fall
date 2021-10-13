@@ -159,7 +159,21 @@ for i in range(ceil(len(plaintext)/16)):
 outputs["problem8"] = cipher[:len(cipher) - garbage_dig].hex()
 
 
+# Problem 9
+output = "".encode()
+res = []
+key = bytes.fromhex(inputs["problem8"]["key"])                  # hex
+nonce = b"\x00" * 12
+for i in range(3):
+    output += (ctr(key, nonce, i))
 
+first_40 = output[:40]
+for i in range(5):
+    #res.append(first_40[8*i: 8*(i+1)].to_bytes(8, "little"))
+    byt =first_40[8*i: 8*(i+1)]
+    res.append(int.from_bytes(byt, "little"))
+
+outputs["problem8"] = res
 
 #
 # # Problem 4
