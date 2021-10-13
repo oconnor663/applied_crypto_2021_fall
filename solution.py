@@ -8,6 +8,7 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 def AES_encrypt_block(key, block):
+    print(f'key: {key}\nblock: {block}')
     assert len(key) == 16
     assert len(block) == 16
     # If you'd like to understand these two lines, come back after Problem 4.
@@ -52,6 +53,7 @@ key = b"A" * 16
 outputs["problem2"] = AES_decrypt_block(key, ciphertext).decode()
 
 
+
 # Problem 3
 '''
  Implement ECB mode encryption by looping over 16-byte blocks of the input and encrypting each of them with the AES block cipher, 
@@ -77,6 +79,14 @@ enc_blocks = ''.join([AES_decrypt_block(key,block).decode() for block in blocks]
 outputs["problem4"] = enc_blocks
 
 
+def pad(s):
+    l = 16 - ((len(bytes.fromhex(s).decode())) % 16)
+    if l == 0:
+        l = 16
+    padding = bytes([l] * l)
+    return (bytes.fromhex(s) + padding)
+
+
 # Problem 5
 '''
 Hex-decode each input string into bytes, pad its length to an even multiple of 16 using PKCS#7 padding, 
@@ -85,18 +95,21 @@ and re-encode the result as hex. Your output should be the list of these padded,
 #bytes.fromhex(s).decode()
 padded = []
 for s in inputs["problem5"]:
-    l = 16 - ((len(bytes.fromhex(s).decode())) % 16)
-    if l == 0:
-        l = 16
-    padding = bytes([l]*l)
-    padded.append((bytes.fromhex(s) + padding).hex())
+    padded.append(pad(s).hex())
 outputs["problem5"] = padded
 
 
 # Problem 6
 '''
-Decode each of the hex strings into bytes, undo the PKCS#7 padding, and convert the result into an ASCII string. 
-Your input should be the list of these strings.
+Convert the lyrics into bytes and pad them with PKCS#7 to a multiple of 16 bytes. 
+Then encrypt those padded bytes with AES in ECB mode using the provided key. Encode the resulting ciphertext as hex, and take a look at it. 
+It contains some repeated blocks! Just like the penguin! 
+A curious attacker might be able to guess what song we were singing...
+Your output for this problem shold be an object with two fields. 
+The "ciphertext" field should contain the ciphertext you created above, encoded as hex. The 
+"repeats" field should be a list, containing each of the 16-byte blocks encoded as hex that repeated more than once in the ciphertext. 
+Because the lyrics string is fixed, there will always be exactly two such blocks, and always in the same positions. 
+You don't need to write code to search for the repeated blocks unless you feel like it.
 '''
 unpadded = []
 for enc_padded in inputs["problem6"]:
@@ -105,9 +118,20 @@ for enc_padded in inputs["problem6"]:
     unpadded.append(unpadded_dec)
 outputs["problem6"] = unpadded
 
+# Problem 7
+lyrics = inputs["problem7"]["lyrics"]
+key = bytes.fromhex(inputs["problem7"]["key"])
+padded_lyrics_b = pad(bytes(lyrics.encode()).hex())
+#outputs["problem7"] = padded_lyrics_b
+print(padded_lyrics_b)
+blocks = [padded_lyrics_b[i:i+16] for i in range(0, len(padded_lyrics_b), 16)]
+enc_blocks = ''.join([AES_encrypt_block(key,block).hex() for block in blocks])
+repeat_candidates = [''.join(AES_encrypt_block(key,block).hex()) for block in blocks]
+repeats = set([c for c in repeat_candidates if repeat_candidates.count(c) > 1])
 
-
-
+outputs["problem7"] = {
+    "repeats": list(repeats)
+}
 
 # # Problem 3
 # ciphertext1, ciphertext2 = inputs["problem3"]
