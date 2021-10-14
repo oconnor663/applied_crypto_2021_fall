@@ -800,7 +800,7 @@ function to generate padding bytes for the message, and concatenate the message
 with its padding. Create a `state` variable, whose starting value is `IV`. Then
 split the padded message up into 64-byte blocks and loop over the blocks,
 calling your `compress()` function on each one. For each call to `compress()`,
-use the current `state` value as input and assigning the return value back to
+use the current `state` value as input and assign the return value back to
 `state`. Once the block loop is finished, convert the final value of `state`
 into 32 bytes by encoding each of the 8 state words as a 4-byte **big endian**
 integer and concatenating them. Those 32 bytes are the return value of
