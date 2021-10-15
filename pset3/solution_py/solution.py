@@ -35,10 +35,13 @@ def AES_ECB_encrypt(key, plaintext):
     while i < len(plaintext):
         ciphertext.extend(AES_encrypt_block(key, plaintext[i : i + 16]))
         i += 16
-    # Check our plaintext against the cryptography library's implementation of ECB.
-    assert plaintext == Cipher(
+    # Check the ciphertext against the cryptography library's implementation of
+    # ECB. These three lines are an "assert". This is me double checking my
+    # work, for debugging purposes. You could remove these three lines without
+    # changing the behavior of the function.
+    assert ciphertext == Cipher(
         algorithms.AES(key), modes.ECB(), default_backend()
-    ).decryptor().update(ciphertext)
+    ).encryptor().update(plaintext)
     return ciphertext
 
 
@@ -49,20 +52,26 @@ def AES_ECB_decrypt(key, ciphertext):
     while i < len(ciphertext):
         plaintext.extend(AES_decrypt_block(key, ciphertext[i : i + 16]))
         i += 16
-    # Check our ciphertext against the cryptography library's implementation of ECB.
-    assert ciphertext == Cipher(
+    # Check the plaintext against the cryptography library's implementation of
+    # ECB. These three lines are an "assert". This is me double checking my
+    # work, for debugging purposes. You could remove these three lines without
+    # changing the behavior of the function.
+    assert plaintext == Cipher(
         algorithms.AES(key), modes.ECB(), default_backend()
-    ).encryptor().update(plaintext)
+    ).decryptor().update(ciphertext)
     return plaintext
 
 
 def PKCS7_pad(b):
     needed = 16 - (len(b) % 16)
+    # This is the bytes([...]) syntax described in the text of Problem 5.
     return b + bytes([needed] * needed)
 
 
 def PKCS7_unpad(b):
-    n = b[-1]
+    # b[-1] would also work here.
+    n = b[len(b) - 1]
+    # Similarly, b[:-n] would also work here.
     return b[: len(b) - n]
 
 
@@ -77,7 +86,10 @@ def AES_CTR_stream(key, nonce, n):
         output.extend(output_block[:remaining])
         remaining -= 16
         blocknum += 1
-    # Check our stream against the cryptography library's implementation of CTR.
+    # Check the stream against the cryptography library's implementation of
+    # CTR. These three lines are an "assert". This is me double checking my
+    # work, for debugging purposes. You could remove these three lines without
+    # changing the behavior of the function.
     assert output == Cipher(
         algorithms.AES(key), modes.CTR(nonce + b"\0" * 4), default_backend()
     ).encryptor().update(b"\0" * n)
@@ -105,9 +117,14 @@ outputs["problem3"] = AES_ECB_encrypt(key, inputs["problem3"].encode()).hex()
 outputs["problem4"] = AES_ECB_decrypt(key, bytes.fromhex(inputs["problem4"])).decode()
 
 # Problem 5
+# This [ ... for X in ... ] pattern is called a "list comprehension".
+# https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions
+# You could also use a regular for-loop here, calling .append() to build the
+# list, as I do in Problem 9 below.
 outputs["problem5"] = [PKCS7_pad(bytes.fromhex(s)).hex() for s in inputs["problem5"]]
 
 # Problem 6
+# This is another list comprehension, see above.
 outputs["problem6"] = [
     PKCS7_unpad(bytes.fromhex(s)).decode() for s in inputs["problem6"]
 ]
