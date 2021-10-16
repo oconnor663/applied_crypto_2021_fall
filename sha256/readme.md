@@ -24,7 +24,9 @@ our implementation to demonstrate a "length extension attack" (see p. 125 of
 *Serious Cryptography*). To get a sense of scale, take a look at the [SHA-256
 pseudocode on Wikipedia](https://en.wikipedia.org/wiki/SHA-2#Pseudocode). That
 pseudocode will be one of our references, and there will be several direct
-quotes from it below.
+quotes from it below. The [animations in this
+video](https://youtu.be/f9EbD6iY9zI) might also help you get a big-picture
+sense of what the algorithm is doing.
 
 Implementing that pseudocode takes less than a hundred lines of Python, which
 might not seem like a lot. But there are lots of little details in those lines,
