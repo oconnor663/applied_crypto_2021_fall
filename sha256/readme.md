@@ -988,7 +988,7 @@ this far, then you know more about the insides of a hash function than many
 cryptographers do. That's something to be proud of, and I hope you'll find that
 it was worth the trouble.
 
-If you're tired of hashing and ready for a beak, no need to read any further.
+If you're tired of hashing and ready for a break, no need to read any further.
 But if you found all this very interesting and you're eager to learn more,
 there are many different avenues to explore. Here are a few:
 
