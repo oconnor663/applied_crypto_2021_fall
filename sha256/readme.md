@@ -896,13 +896,14 @@ in bits. My original 55 bytes and these 9 bytes of padding are 64 bytes put
 together, exactly one block. Clear so far?
 
 Now put your attacker hat back on. You're going to pretend that those padding
-bytes are actually the start of your chosen suffix. Then you're going to any
-number of additional suffix bytes of your choosing. The resulting "synthetic"
-input, which you're ultimately going to compute the hash of, will be equivalent
-to my original, plus my padding, plus the rest of your chosen suffix. Let's say
-my original input was fifty-five `0xaa` bytes, and you chose three `0xff` bytes
-for your suffix. In that case the synthetic message, represented here as a
-hex-encoded string that I've split over a few lines, would be:
+bytes are actually the start of your chosen suffix. Then you're going to add
+any number of additional suffix bytes of your choosing. The resulting
+"synthetic" input, which you're ultimately going to compute the hash of, will
+be equivalent to my original, plus my padding, plus the rest of your chosen
+suffix. Let's say my original input was fifty-five `0xaa` bytes, and you chose
+three `0xff` bytes for your suffix. In that case the synthetic message,
+represented here as a hex-encoded string that I've split over a few lines,
+would be:
 
 ```
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa    <-- the first 32-byte half of the first block
