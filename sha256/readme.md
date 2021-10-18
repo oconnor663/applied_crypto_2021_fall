@@ -241,9 +241,9 @@ The other building block we need is bitwise rotation. Most programming
 languages including Python provide a very similar operation called bit
 _shifting_, usually written `<<` (left shift) or `>>` (right shift). A bit
 rotation is like bit shift, but instead of "falling off the end" of the number,
-they rotate around to the other end. This is nice for cryptographic functions
-that need to do a lot of mixing, because it moves bits around without losing
-any information. For example, consider this 32-bit number:
+the bits rotate around to the other end. This is nice for cryptographic
+functions that need to do a lot of mixing, because it moves bits around without
+losing any information. For example, consider this 32-bit number:
 
 ```
 00000000000000000000000000001111
@@ -958,7 +958,7 @@ regular message in Problem&nbsp;13. However, instead of calling your
 *total length of the synthetic message*. That is, the original input length,
 plus the length of the original input's padding, plus the length of the suffix.
 
-Next, hash the padded result by looping over its blocks and calling
+Next, hash the padded suffix by looping over its blocks and calling
 `compress()` on each of them, again as you did in Problem&nbsp;13. However,
 instead of using `IV` for your initial state, use the state words that you
 recovered from the original hash.
@@ -970,8 +970,8 @@ encoded as hex.
 
 The input for the `"original_hash"` given in `example_input.json` was `elephant
 jaguar vulture octopus butterfly`. You don't need to know that to extend it,
-but if you like, you can check your result by hand and confirm that it is
-indeed a valid extension of that original string.
+but if you like, you can check that the output is indeed a valid extension of
+that original string as an exercise.
 
 **Input:** an object with three fields, `"original_hash"`, `"original_len"`, and `"chosen_suffix"`
 
