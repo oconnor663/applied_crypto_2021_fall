@@ -289,18 +289,18 @@ unsigned integer.**
 ## The Message Schedule
 
 With those two building blocks in place, we're ready to implement the first
-major moving part of our hash function: the "message schedule". In each
-**round** of its compression function, SHA-256 mixes in one **word** from its
-input. (Make sure you read the definition of a "word" above.) The "message
-schedule" defines exactly what those inputs words are and the order in which
-they're used.
+major moving part of our hash function, the "message schedule". Here the
+"message" means the hash function's input. In each round of its compression
+function, SHA-256 mixes in one word from the message. (Make sure you read the
+definition of a "word" above.) The "message schedule" defines exactly what
+those words are and the order in which they're used.
 
-A SHA-256 input block is 64 bytes long, and a word is 4 bytes long, so the
-input block itself contains exactly 16 words. SHA-256 has 64 rounds, and the
-first 16 of those rounds use those 16 input words directly. The subsequent 48
-rounds mix different input words together using a formula. We're about to
-implement that formula. First we need a couple more small helpers, which we'll
-call `little_sigma0` and `little_sigma1`.
+A SHA-256 message block is 64 bytes long, and a word is 4 bytes long, so one
+block contains exactly 16 words. SHA-256 has 64 rounds, and the first 16 of
+those rounds use those 16 message words directly. The subsequent 48 rounds mix
+different message words together using a formula. We're about to implement that
+formula. First we need a couple more small helpers, which we'll call
+`little_sigma0` and `little_sigma1`.
 
 ### Problem 3: `little_sigma0()`
 
@@ -679,81 +679,85 @@ sight.
 
 ### Problem 12: padding
 
-Compression functions have a lot in common with block ciphers, and like block
-ciphers they need a padding scheme to handle inputs that aren't an exact
-multiple of their block size. A naive padding scheme like "just fill the
-remainder of the last block with zeros" would ruin the collision resistance of
-the hash function, because some different inputs would be the same after
-padding. So hash functions need a proper, unambiguous padding scheme.
+SHA-256 takes a "message" of any length as input, but the compression function
+works with 64-byte blocks at a time, so we need to pad the message to be an
+exact multiple of the block size. This is very similar to what we did with
+block ciphers in Chapter&nbsp;4 and Problem&nbsp;Set&nbsp;3. As with block
+ciphers, a naive padding scheme like "just fill the remainder of the last block
+with zeros" isn't going to work. This time it's because of collision
+resistance: If two different messages looked the same after padding, then their
+hashes would be the same too, which is never supposed to happen. That means we
+need a proper, unambiguous padding scheme.
 
 It would be nice if we could reuse our PCKS#7 code from Problem Set 3, but alas
 SHA-256 does something different. On the bright side, because this is hashing
 and not encryption, at least we don't need to write any code for unpadding.
 
-The SHA-256 padding scheme is originally defined in terms of bits (not bytes),
-and it makes more sense in those terms, so let's start there. Remember that
+The SHA-256 padding scheme is originally defined in terms of bits, not bytes. I
+think it's a little clearer in those terms, so let's start there. Remember that
 there are 8 bits in a byte, so a block size of 64 bytes is the same as 512
 bits. Here's the padding scheme as it's originally defined:
 
-1. Append a single 1-bit to the end of the input.
-2. Then append some number of 0-bits after that. Call this number `zero_bits`.
-   We'll define `zero_bits` in a moment.
-3. Finally, append the bit length of the original input, encoded as a 64-bit
-   unsigned **big-endian** number.
-4. Choose `zero_bits` (the number of 0-bits) to be the smallest value such that
-   the total resulting length is an exact multiple of 512 bits.
+1. Start the padding bitstring with a single 1-bit.
+2. Then append some 0-bits after that. We'll define how many in step 4 below.
+3. Finally, append the bit-length of the message, encoded as a 64-bit unsigned
+   big-endian number.
+4. Choose the number of 0-bits for step 2 to be the smallest number such that
+   the total bit-length of the message plus the padding is an exact multiple of
+   512.
 
 A side note: You might notice that step 3 there isn't actually necessary for
-making the padding unambiguous. Steps 1 and 2 alone are sufficient for that.
-The goal of step 3 is to make it harder to find collisions, by including the
-input length in the mix.
+making the padding unambiguous. Steps 1 and 2 are sufficient for that. The goal
+of step 3 is to make it harder to find collisions, by including the message
+length in the mix.
 
 Defining the padding scheme in terms of bits like this is pretty
 straightforward, but in practice our programming languages and our computer
 hardware don't usually talk about individual bits directly. We need to
-translate that definition to bytes. So here's the exact same scheme,
+translate that definition into bytes. So here's the exact same padding scheme,
 redescribed in terms of bytes, the way we'll actually implement it:
 
-1. Append a single 0x80 byte (decimal 128, binary 0b10000000) to the end of the
-   input. As you can see in the binary representation, this byte is a single
+1. Start the padding bytestring with a single 0x80 byte (decimal 128, binary
+   0b10000000). As you can see in the binary representation, this is a single
    1-bit followed by seven 0-bits.
-2. Append some number of 0x00 bytes after that. Call this number `zero_bytes`.
-3. Finally, append **8 times** the byte length of the original input, encoded
-   as an 8-byte unsigned **big-endian** number. (Forgetting to multiply the
-   length by 8 is a *common mistake*.)
-4. Choose `zero_bytes` (the number of 0x00 bytes) to be the smallest value such
-   that the total resulting length is an exact multiple of 64 bytes.
+2. Then append some 0x00 bytes after that. We'll define how many in step 4
+   below.
+3. Finally, append **8 times** the byte-length of the message, encoded as an
+   8-byte unsigned **big-endian** number. (Forgetting to multiply the `len()`
+   by 8 here is a *common mistake*.)
+4. Choose the number of 0x00 bytes for step 2 to be the smallest number such
+   that the total byte-length of the message plus the padding is an exact
+   multiple of 64.
 
-Things got a little bit less elegant in that translation. The first byte we
-append is less obvious, and the multiply-by-8 step is easy to forget. But we'll
-manage.
+That translation made things a little less elegant. The first byte we append is
+less obvious, and the multiply-by-8 step is easy to forget. But we'll manage.
 
-How do we determine that smallest value of `zero_bytes` exactly? If you like
-little puzzles, this is another good one to think about on your own before
+How do we determine the number of 0x00 bytes in step 4? If you like little
+arithmetic puzzles, this is another good one to think about on your own before
 reading further. Otherwise, feel free to copy the following three lines of
 Python:
 
 ```python
-remainder_bytes = (input_length + 8) % 64  # bytes in the final block, including the encoded bit length
-filler_bytes = 64 - remainder_bytes        # padding bytes we need to add, including the initial 0x80 byte
-zero_bytes = filler_bytes - 1              # 0x00 padding we need to add
+remainder_bytes = (message_length + 8) % 64  # number of bytes in the final block, including the appended length
+filler_bytes = 64 - remainder_bytes          # number of bytes we need to add, including the initial 0x80 byte
+zero_bytes = filler_bytes - 1                # number of 0x00 bytes we need to add
 ```
 
 Take a minute or two to review that logic and convince yourself it's correct.
-Then write a function like `padding(input_length)`, which takes the original
-**byte length** (not bit length!) of an input and returns the appropriate
-padding bytestring for that input. Your input for this problem is a list of
-input byte lengths (not bit lengths!). For each input length, call your
-`padding()` function with that length and hex-encode the resulting padding
-bytes. Your output for this problem should be the list of hex-encoded padding
-strings.
+Then write a function like `padding(message_length)`, which takes the original
+**byte-length** of a message and returns the padding bytestring for that
+message. Your input for this problem is a list of message byte-lengths. For
+each of these, call your `padding()` function with that length as an argument
+and hex-encode the resulting padding bytes. (There are no message bytes to
+concatenate in this problem, just the padding bytes themselves.) Your output
+for this problem should be the list of hex-encoded padding strings.
 
-**Input:** a list of input lengths, counted in bytes
+**Input:** a list of message lengths, counted in bytes
 
 **Output:** a list of SHA-256 padding bytestrings, each hex-encoded
 
 This padding function was our last big moving part. All we have to do now is
-put the padding function and compression function together.
+put the padding function and the compression function together.
 
 ## The Hash Function
 
@@ -764,12 +768,8 @@ Once you finish this problem, you can test your code against Python's `hashlib`
 or against any other SHA-256 implementation in the world, and your output will
 be exactly the same. Knock on wood.
 
-The hash function takes a bytestring of any length as input, which we often
-call the "message". (This is why the thing we built in Problem&nbsp;5 is called
-the "message schedule".) You can think of the "message" as the hash function
-equivalent of the "plaintext". As we did with block ciphers, we're going to pad
-the message and split it up into blocks. Let's look at that Merkle–Damgård
-diagram again:
+As we did with block ciphers, we're going to pad the message and split it up
+into blocks. Let's look at that Merkle–Damgård diagram again:
 
 <kbd><img alt="Merkle–Damgård diagram" src="images/merkle-damgard.png"></kbd>
 
