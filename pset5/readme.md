@@ -1,4 +1,4 @@
-# Coding Problem Set 4: Keyed Hashing
+# Coding Problem Set 5: Keyed Hashing
 
 Example input:
 
