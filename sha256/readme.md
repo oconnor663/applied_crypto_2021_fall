@@ -729,8 +729,8 @@ redescribed in terms of bytes, the way we'll actually implement it:
    that the total byte-length of the message plus the padding is an exact
    multiple of 64.
 
-That translation made things a little less elegant. The first byte we append is
-less obvious, and the multiply-by-8 step is easy to forget. But we'll manage.
+That translation made things a little less elegant. The first byte is less
+obvious, and the multiply-by-8 step is easy to forget. But we'll manage.
 
 How do we determine the number of 0x00 bytes in step 4? If you like little
 arithmetic puzzles, this is another good one to think about on your own before
@@ -957,6 +957,8 @@ regular message in Problem&nbsp;13. However, instead of calling your
 `padding()` function with the length of the suffix itself, call it with the
 *total length of the synthetic message*. That is, the original input length,
 plus the length of the original input's padding, plus the length of the suffix.
+(This makes your padding bytes different, but it doesn't change _how many_
+padding bytes you get. Can you see why?)
 
 Next, hash the padded suffix by looping over its blocks and calling
 `compress()` on each of them, again as you did in Problem&nbsp;13. However,
