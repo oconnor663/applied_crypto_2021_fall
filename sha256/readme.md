@@ -270,6 +270,7 @@ means "bitwise-or" in Python.
 
 ```python
 def rightrotate32(x, n):
+    assert x < 2 ** 32, "x is too large. Did you use + instead of add32 somewhere?"
     right_part = x >> n
     left_part = (x << (32 - n)) % (2 ** 32)
     return left_part | right_part
