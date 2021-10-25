@@ -1,4 +1,4 @@
-# Coding Problem Set 5: Keyed Hashing
+# Coding Problem Set 5:<br>Keyed Hashing and Authenticated Encryption
 
 Example input:
 

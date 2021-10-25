@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-import binascii
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import json
 import secrets

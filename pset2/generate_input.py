@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-import binascii
 import json
 from nacl.secret import SecretBox
 import secrets
