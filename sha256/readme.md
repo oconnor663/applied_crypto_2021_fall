@@ -809,6 +809,17 @@ into 32 bytes by encoding each of the 8 state words as a 4-byte **big endian**
 integer and concatenating them. Those 32 bytes are the return value of
 `sha256()`.
 
+> Debugging tips: Even if you've passed tests for all the previous problems,
+> and your `sha256()` function looks correct, sometimes you can still get the
+> wrong answer here. One thing to look out for is accidental global variables
+> in your functions, which refer to input from a previous problem. Another
+> thing to look out for is inconsistencies in how you call your functions, for
+> example using a list of bytes in one place but a list of words in another. If
+> you get stuck, put print statements everywhere and try to spot where the
+> problem is starting. Here are some [known-good debug printouts for
+> `sha256(b"")`](https://gist.github.com/oconnor663/27804bb33542bbf398aab16e102d8594),
+> which you can compare to what your own code prints.
+
 Your input for this problem is a list of ASCII strings. Convert each string to
 bytes and hash it with your `sha256()` function. Your output should be a list
 of the resulting SHA-256 hashes, each encoded as hex.
