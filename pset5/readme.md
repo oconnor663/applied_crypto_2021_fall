@@ -130,6 +130,17 @@ but sometimes we make it harder than it needs to be. We can do better!
 
 ## Problem 2: XSalsa20
 
+> **🚩 KNOWN ISSUE 🚩** I've heard from several students using Windows that
+> they get a big error message about how "Microsoft Visual C++ 14.0 or greater
+> is required" when they run `pip install salsa20`. See [this Brightspace
+> thread](https://brightspace.nyu.edu/d2l/le/135363/discussions/threads/206016/View).
+> I'm going to rework this problem to use a different dependency. If you've
+> already finished this problem, don't worry, the answers won't change. If
+> you're seeing this error, and you're feeling adventurous, feel free to try to
+> install Microsoft Visual C++. But if wrestling with the Windows dev toolchain
+> isn't your idea of a fun time, please check back in a day or two for an
+> updated version of this question.
+
 Now that you know about keyed hashes and MACs, we can finally talk about what
 secretbox is doing on the inside. We've mentioned before that secretbox is
 really XSalsa20-Poly1305, that is, the combination of the XSalsa20 stream
