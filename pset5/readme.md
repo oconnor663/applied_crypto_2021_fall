@@ -145,8 +145,8 @@ introduce these two building blocks and then put them together.
 
 We don't often see XSalsa20 outside of secretbox, and our PyNaCl library
 doesn't give it to us directly. So we'll need [a new
-dependency](https://github.com/keybase/python-salsa20), just for this one
-problem set:
+dependency](https://github.com/oconnor663/pure_python_salsa_chacha), just for
+this one problem set:
 
 ```
 pip install pure_salsa20
