@@ -130,16 +130,12 @@ but sometimes we make it harder than it needs to be. We can do better!
 
 ## Problem 2: XSalsa20
 
-> **🚩 KNOWN ISSUE 🚩** I've heard from several students using Windows that
-> they get a big error message about how "Microsoft Visual C++ 14.0 or greater
-> is required" when they run `pip install salsa20`. See [this Brightspace
-> thread](https://brightspace.nyu.edu/d2l/le/135363/discussions/threads/206016/View).
-> I'm going to rework this problem to use a different dependency. If you've
-> already finished this problem, don't worry, the answers won't change. If
-> you're seeing this error, and you're feeling adventurous, feel free to try to
-> install Microsoft Visual C++. But if wrestling with the Windows dev toolchain
-> isn't your idea of a fun time, please check back in a day or two for an
-> updated version of this question.
+> UPDATED: The original version of this problem used `pip install salsa20`
+> instead of `pip install pure_salsa20`. That worked for many people, but it
+> ran into "Microsoft Visual C++ 14.0 or greater is required" errors on some
+> Windows machines. To sidestep that issue, I've changed the instructions to
+> use `pure_salsa20`. The output for this problem remains the same, so if your
+> code was working before, you don't need to change anything.
 
 Now that you know about keyed hashes and MACs, we can finally talk about what
 secretbox is doing on the inside. We've mentioned before that secretbox is
@@ -153,7 +149,7 @@ dependency](https://github.com/keybase/python-salsa20), just for this one
 problem set:
 
 ```
-pip install salsa20
+pip install pure_salsa20
 ```
 
 As before, you might need to write `pip3` instead of `pip` on some systems.
@@ -162,14 +158,14 @@ Here's a quick example of generating 10 bytes of an XSalsa20 stream from a
 random key and nonce. Try it yourself:
 
 ```
->>> import salsa20
+>>> from pure_salsa20 import xsalsa20_stream
 >>> import secrets
->>> nonce = secrets.token_bytes(24)
->>> key = secrets.token_bytes(32)
->>> salsa20.XSalsa20_keystream(10, nonce, key)
-b'\xbf(yZ\x1d8\x82\xfakx'
->>> salsa20.XSalsa20_keystream(10, nonce, key)
-b'\xbf(yZ\x1d8\x82\xfakx'                      <-- notice that the stream is pseudorandom but deterministic
+>>> key = b"D" * 32
+>>> nonce = b"E" * 24
+>>> xsalsa20_stream(key, nonce, 10).hex()
+'1f9588a7f2f8916c71f8'
+>>> xsalsa20_stream(key, nonce, 10).hex()  # Note that the stream is pseudorandom but deterministic.
+'1f9588a7f2f8916c71f8'
 ```
 
 What's going on here is very similar to what we did in Problem&nbsp;9 of
