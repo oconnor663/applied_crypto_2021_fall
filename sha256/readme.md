@@ -746,12 +746,17 @@ zero_bytes = filler_bytes - 1                # number of 0x00 bytes we need to a
 
 Take a minute or two to review that logic and convince yourself it's correct.
 Then write a function like `padding(message_length)`, which takes the original
-**byte-length** of a message and returns the padding bytestring for that
+**byte-length** of a message and returns the padding **bytestring** for that
 message. Your input for this problem is a list of message byte-lengths. For
 each of these, call your `padding()` function with that length as an argument
 and hex-encode the resulting padding bytes. (There are no message bytes to
 concatenate in this problem, just the padding bytes themselves.) Your output
-for this problem should be the list of hex-encoded padding strings.
+for this problem should be the resulting list of hex-encoded padding strings.
+
+I recommend that you have your `padding()` function return raw bytes, and that
+you call it like `padding(...).hex()` for this problem. If you prefer to have
+your `padding()` function do hex-encoding internally, that's ok too, but then
+you'll need to remember to hex-decode its output in the following problems.
 
 **Input:** a list of message lengths, counted in bytes
 
@@ -799,15 +804,15 @@ IV = [
 
 Write a function like `sha256(message)`. ([This is
 it!](https://youtu.be/6v5VahaEL7s?t=438)) Inside it, use your `padding()`
-function to generate padding bytes for the message, and concatenate the message
-with its padding. Create a `state` variable, whose starting value is `IV`. Then
-split the padded message up into 64-byte blocks and loop over the blocks,
-calling your `compress()` function on each one. For each call to `compress()`,
-use the current `state` value as input and assign the return value back to
-`state`. Once the block loop is finished, convert the final value of `state`
-into 32 bytes by encoding each of the 8 state words as a 4-byte **big endian**
-integer and concatenating them. Those 32 bytes are the return value of
-`sha256()`.
+function to generate padding **bytes** (not hex) for the message, and
+concatenate the message with its padding. Create a `state` variable, whose
+starting value is `IV`. Then split the padded message up into 64-byte blocks
+and loop over the blocks, calling your `compress()` function on each one. For
+each call to `compress()`, use the current `state` value as input and assign
+the return value back to `state`. Once the block loop is finished, convert the
+final value of `state` into 32 bytes by encoding each of the 8 state words as a
+4-byte **big endian** integer and concatenating them. Those 32 bytes are the
+return value of `sha256()`.
 
 > Debugging tips: Even if you've passed tests for all the previous problems,
 > and your `sha256()` function looks correct, sometimes you can still get the
