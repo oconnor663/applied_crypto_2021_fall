@@ -801,28 +801,29 @@ IV = [
 ]
 ```
 
-Write a function like `sha256(message)`. ([This is
-it!](https://youtu.be/6v5VahaEL7s?t=438)) Inside it, use your `padding()`
-function to generate padding **bytes** (not hex) for the message, and
-concatenate the message with its padding. Create a `state` variable, whose
-starting value is `IV`. Then split the padded message up into 64-byte blocks
-and loop over the blocks, calling your `compress()` function on each one. For
-each call to `compress()`, use the current `state` value as input and assign
-the return value back to `state`. Once the block loop is finished, convert the
-final value of `state` into 32 bytes by encoding each of the 8 state words as a
-4-byte **big endian** integer and concatenating them. Those 32 bytes are the
-return value of `sha256()`.
+Now, write a function like
+[`sha256(message)`](https://youtu.be/6v5VahaEL7s?t=438). Inside it, use your
+`padding()` function to generate padding bytes, and then append them to the
+message bytes. Note that nothing should be hex-encoded at this point. (Using
+hex-encoded padding here is a _common mistake_.) Create a `state` variable,
+whose starting value is `IV`. Then split the padded message up into 64-byte
+blocks and loop over the blocks, calling your `compress()` function on each
+one. (Double check that your arguments to `compress()` are consistent with your
+code from Problem&nbsp;12. Calling `compress()` with inconsistent argument
+types is another _common mistake_.) For each call to `compress()`, use the
+current `state` value as input and assign the return value back to `state`.
+Once the block loop is finished, convert the final value of `state` into 32
+bytes by encoding each of the 8 state words as a 4-byte **big endian** integer
+and concatenating them. Those 32 bytes are the return value of `sha256()`.
 
 > Debugging tips: Even if you've passed tests for all the previous problems,
-> and your `sha256()` function looks correct, sometimes you can still get the
-> wrong answer here. One thing to look out for is accidental global variables
-> in your functions, which refer to input from a previous problem. Another
-> thing to look out for is inconsistencies in how you call your functions, for
-> example using a list of bytes in one place but a list of words in another. If
-> you get stuck, put print statements everywhere and try to spot where the
-> problem is starting. Here are some [known-good debug printouts for
-> `sha256(b"")`](https://gist.github.com/oconnor663/27804bb33542bbf398aab16e102d8594),
-> which you can compare to what your own code prints.
+> and your `sha256()` function looks good, sometimes you can still get the
+> wrong answer here. Look carefully for the common mistakes described above.
+> Also look for accidental global variables in your functions, which might
+> refer to input from a previous problem. If you get stuck, put print
+> statements everywhere, and compare what you see to these [known-good debug
+> printouts for
+> `sha256(b"")`](https://gist.github.com/oconnor663/27804bb33542bbf398aab16e102d8594).
 
 Your input for this problem is a list of ASCII strings. Convert each string to
 bytes and hash it with your `sha256()` function. Your output should be a list
