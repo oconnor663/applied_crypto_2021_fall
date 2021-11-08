@@ -809,7 +809,7 @@ hex-encoded padding here is a _common mistake_.) Create a `state` variable,
 whose starting value is `IV`. Then split the padded message up into 64-byte
 blocks and loop over the blocks, calling your `compress()` function on each
 one. (Double check that your arguments to `compress()` are consistent with your
-code from Problem&nbsp;12. Calling `compress()` with inconsistent argument
+code from Problem&nbsp;11. Calling `compress()` with inconsistent argument
 types is another _common mistake_.) For each call to `compress()`, use the
 current `state` value as input and assign the return value back to `state`.
 Once the block loop is finished, convert the final value of `state` into 32
