@@ -265,15 +265,14 @@ Python doesn't have a built-in bit rotation operator, but we can accomplish the
 same thing by combining the results of two shifts. If you enjoy bit twiddling
 puzzles, figure out how to do this before reading further. If not, it's ok to
 just copy the following function, but make sure you take a few moments to walk
-through the example above and see how it does the right thing. Note that `|`
-means "bitwise-or" in Python.
+through the example above and see how it does the right thing.
 
 ```python
 def rightrotate32(x, n):
     assert x < 2 ** 32, "x is too large. Did you use + instead of add32 somewhere?"
     right_part = x >> n
-    left_part = (x << (32 - n)) % (2 ** 32)
-    return left_part | right_part
+    left_part = x << (32 - n)
+    return add32(left_part, right_part)
 ```
 
 **Input:** a list of `(x, n)` pairs
