@@ -808,13 +808,14 @@ message bytes. Note that nothing should be hex-encoded at this point. (Using
 hex-encoded padding here is a _common mistake_.) Create a `state` variable,
 whose starting value is `IV`. Then split the padded message up into 64-byte
 blocks and loop over the blocks, calling your `compress()` function on each
-one. (Double check that your arguments to `compress()` are consistent with your
-code from Problem&nbsp;11. Calling `compress()` with inconsistent argument
-types is another _common mistake_.) For each call to `compress()`, use the
-current `state` value as input and assign the return value back to `state`.
-Once the block loop is finished, convert the final value of `state` into 32
-bytes by encoding each of the 8 state words as a 4-byte **big endian** integer
-and concatenating them. Those 32 bytes are the return value of `sha256()`.
+one. For each call to `compress()`, use the current `state` value as input and
+assign the return value back to `state`. Double check that your argument types
+for `compress()` are the same as they were in Problem&nbsp;11. (Calling
+`compress()` with block bytes here but block words there is another _common
+mistake_.) Once the block loop is finished, convert the final value of `state`
+into 32 bytes by encoding each of the 8 state words as a 4-byte **big endian**
+integer and concatenating them. Those 32 bytes are the return value of
+`sha256()`.
 
 > Debugging tips: Even if you've passed tests for all the previous problems,
 > and your `sha256()` function looks good, sometimes you can still get the
