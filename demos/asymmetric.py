@@ -62,4 +62,5 @@ signing_keypair.verify_key.verify(b"hello world", signature)
 print("ok", "\n")
 
 print('verifying the signature against "jello world"...')
+# This line will throw an exception.
 signing_keypair.verify_key.verify(b"jello world", signature)

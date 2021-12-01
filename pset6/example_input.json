@@ -1,0 +1,17 @@
+{
+  "problem1": "9e05900de9e1a6f575768c274562b7155c05d856f804b993172942cfabb1e716",
+  "problem2": "bdb323116f131971e3a7014aae30a23f5a7862e25b1ea21d23e4df7628a974f7bf1763d9ea39480f2001c31c7c4dbfb8106f04b9",
+  "problem3": null,
+  "problem4": "hippopotamus dog pig unicorn narwhal",
+  "problem5": {
+    "candidates": [
+      "quail butterfly dog fox manatee",
+      "sheep vulture llama kangaroo zebra",
+      "wombat aardvark pig elephant aardvark",
+      "wombat aardvark octopus butterfly dog",
+      "aardvark dog elephant octopus dog"
+    ],
+    "signing_public_key": "45588a131029f816f3767ca7b8090c3612fff11e9f91e96966e21b087b2acb90",
+    "signature": "33e0008377d23e8abc661cd5445599f83411479210a5e1dda04195773e0ec682d0c06c0863c536456900b2a85d97753560283d8ed38f9453c2bb225fb494b506"
+  }
+}
