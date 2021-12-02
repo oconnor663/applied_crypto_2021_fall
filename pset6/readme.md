@@ -204,8 +204,10 @@ validate Alice's signature against each one. Only one of them will succeed
 authentic message.
 
 You'll need to use the `try` and `except` keywords in Python. It might be
-helpful to refer back to the solution of problem 5 from the first problem set,
-where we wrote a similar loop.
+helpful to refer back to the
+[solution](../pset1/solution_py/solution.py#L43-L56) of [problem
+5](../pset1#problem-5) from the first problem set, where we wrote a similar
+loop.
 
 **Input:** an object with three fields, `"candidates"`, `"signing_public_key"`, and `"signature"`
 
